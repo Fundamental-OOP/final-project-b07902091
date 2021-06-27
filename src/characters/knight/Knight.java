@@ -24,56 +24,26 @@ import static utils.ImageStateUtils.imageStatesFromFolder;
  */
 public class Knight extends HealthPointSprite {
     public static final int KNIGHT_HP = 500;
-    private final SpriteShape shape;
-    private final FiniteStateMachine fsm;
+    private SpriteShape shape;
+    private SpriteShape crouchShape;
+    private FiniteStateMachine fsm;
     private final Set<Direction> directions = new CopyOnWriteArraySet<>();
     private final int damage;
 
     public enum Event {
-        WALK, STOP, ATTACK, DAMAGED
+        WALK, STOP, ATTACK, DAMAGED, CRUOCH, JUMP, STOP_CROUCH
     }
 
     public Knight(int damage, Point location) {
         super(KNIGHT_HP);
         this.damage = damage;
         this.location = location;
-        shape = new SpriteShape(new Dimension(146, 176), new Dimension(33, 38), new Dimension(66, 105));
-        fsm = new FiniteStateMachine();
-
-        ImageRenderer imageRenderer = new KnightImageRenderer(this);
-        State idle = new WaitingPerFrame(4, new Idle(imageStatesFromFolder("assets/character/knight/idle", imageRenderer)));
-        State walking = new WaitingPerFrame(2,
-                new Walking(this, imageStatesFromFolder("assets/character/knight/walking", imageRenderer)));
-        State attacking = new WaitingPerFrame(3,
-                new Attacking(this, fsm, imageStatesFromFolder("assets/character/knight/attack", imageRenderer)));
-
-        fsm.setInitialState(idle);
-        fsm.addTransition(from(idle).when(WALK).to(walking));
-        fsm.addTransition(from(walking).when(STOP).to(idle));
-        fsm.addTransition(from(idle).when(ATTACK).to(attacking));
-        fsm.addTransition(from(walking).when(ATTACK).to(attacking));
     }
 
-    public Knight(int damage, Point location, String filepath) {
-        super(KNIGHT_HP);
-        this.damage = damage;
-        this.location = location;
-        shape = new SpriteShape(new Dimension(146, 176), new Dimension(33, 38), new Dimension(66, 105));
-        fsm = new FiniteStateMachine();
-
-        ImageRenderer imageRenderer = new KnightImageRenderer(this);
-
-        State idle = new WaitingPerFrame(4, new Idle(imageStatesFromFolder(filepath.concat("idle"), imageRenderer)));
-        State walking = new WaitingPerFrame(2,
-                new Walking(this, imageStatesFromFolder(filepath.concat("walking"), imageRenderer)));
-        State attacking = new WaitingPerFrame(3,
-                new Attacking(this, fsm, imageStatesFromFolder(filepath.concat("attack"), imageRenderer)));
-
-        fsm.setInitialState(idle);
-        fsm.addTransition(from(idle).when(WALK).to(walking));
-        fsm.addTransition(from(walking).when(STOP).to(idle));
-        fsm.addTransition(from(idle).when(ATTACK).to(attacking));
-        fsm.addTransition(from(walking).when(ATTACK).to(attacking));
+    public void init(SpriteShape shape, SpriteShape crouchShape, FiniteStateMachine fsm) {
+        this.shape = shape;
+        this.fsm = fsm;
+        this.crouchShape = crouchShape;
     }
 
     public void attack() {
@@ -92,6 +62,25 @@ public class Knight extends HealthPointSprite {
             this.directions.add(direction);
             fsm.trigger(WALK);
         }
+    }
+
+    public void triggerWalk() {
+        if (!directions.isEmpty()) {
+            fsm.trigger(WALK);
+        }
+    }
+
+    public void jump() {
+        fsm.trigger(JUMP);
+    }
+
+    public void crouch() {
+        fsm.trigger(CRUOCH);
+    }
+
+    public void stopCrouch() {
+        fsm.trigger(STOP_CROUCH);
+        triggerWalk();
     }
 
     public void stop(Direction direction) {
@@ -122,17 +111,25 @@ public class Knight extends HealthPointSprite {
 
     @Override
     public Rectangle getRange() {
-        return new Rectangle(location, shape.size);
+        if (!fsm.currentState().toString().equals("Crouch"))
+            return new Rectangle(location, shape.size);
+        else
+            return new Rectangle(location, crouchShape.size);
     }
 
     @Override
     public Dimension getBodyOffset() {
-        return shape.bodyOffset;
+        if (!fsm.currentState().toString().equals("Crouch"))
+            return shape.bodyOffset;
+        else
+            return crouchShape.bodyOffset;
     }
 
     @Override
     public Dimension getBodySize() {
-        return shape.bodySize;
+        if (!fsm.currentState().toString().equals("Crouch"))
+            return shape.bodySize;
+        else
+            return crouchShape.bodySize;
     }
-
 }

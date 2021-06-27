@@ -18,7 +18,7 @@ import java.util.Set;
 public class Attacking extends Sequence {
     public static final String AUDIO_SWORD_CLASH_1 = "sword-clash1";
     public static final String AUDIO_SWORD_CLASH_2 = "sword-clash2";
-    private final Knight knight;
+    protected final Knight knight;
     private final StateMachine stateMachine;
     private final Set<Integer> damagingStateNumbers = new HashSet<>(List.of(6));
 
@@ -46,7 +46,7 @@ public class Attacking extends Sequence {
          g.drawRect(damageArea.x, damageArea.y, damageArea.width, damageArea.height);
     }
 
-    private void effectDamage() {
+    protected void effectDamage() {
         World world = knight.getWorld();
         Rectangle damageArea = damageArea();
         var sprites = world.getSprites(damageArea);
@@ -64,14 +64,15 @@ public class Attacking extends Sequence {
         }
     }
 
-    private Rectangle damageArea() {
-        return knight.getArea(new Dimension(87, 70),
-                new Dimension(55, 88));
+    protected Rectangle damageArea() {
+        return knight.getArea(new Dimension(87, 70),//box offset x, y
+                new Dimension(55, 88));//box width, box height
     }
 
     @Override
     protected void onSequenceEnd() {
         currentPosition = 0;
         stateMachine.reset();
+        knight.triggerWalk();
     }
 }

@@ -22,6 +22,17 @@ public class Game extends GameLoop {
         getPlayer(playerNumber).move(direction);
     }
 
+    public void jumpKnight(int playerNumber){
+        getPlayer(playerNumber).jump();
+    }
+
+    public void crouchKnight(int playerNumber){
+        getPlayer(playerNumber).crouch();
+    }
+    public void stopCrouchKnight(int playerNumber){
+        getPlayer(playerNumber).stopCrouch();
+    }
+
     public void stopKnight(int playerNumber, Direction direction) {
         getPlayer(playerNumber).stop(direction);
     }

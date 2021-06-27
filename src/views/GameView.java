@@ -42,10 +42,10 @@ public class GameView extends JFrame {
             public void keyPressed(KeyEvent keyEvent) {
                 switch (keyEvent.getKeyCode()) {
                     case KeyEvent.VK_W:
-                        game.moveKnight(P1, Direction.UP);
+                        game.jumpKnight(P1);
                         break;
                     case KeyEvent.VK_S:
-                        game.moveKnight(P1, Direction.DOWN);
+                        game.crouchKnight(P1);
                         break;
                     case KeyEvent.VK_A:
                         game.moveKnight(P1, Direction.LEFT);
@@ -57,10 +57,10 @@ public class GameView extends JFrame {
                         game.attack(P1);
                         break;
                     case KeyEvent.VK_I:
-                        game.moveKnight(P2, Direction.UP);
+                        game.jumpKnight(P2);
                         break;
                     case KeyEvent.VK_K:
-                        game.moveKnight(P2, Direction.DOWN);
+                        game.crouchKnight(P2);
                         break;
                     case KeyEvent.VK_J:
                         game.moveKnight(P2, Direction.LEFT);
@@ -81,7 +81,7 @@ public class GameView extends JFrame {
                         game.stopKnight(P1, Direction.UP);
                         break;
                     case KeyEvent.VK_S:
-                        game.stopKnight(P1, Direction.DOWN);
+                        game.stopCrouchKnight(P1);
                         break;
                     case KeyEvent.VK_A:
                         game.stopKnight(P1, Direction.LEFT);
@@ -93,7 +93,7 @@ public class GameView extends JFrame {
                         game.stopKnight(P2, Direction.UP);
                         break;
                     case KeyEvent.VK_K:
-                        game.stopKnight(P2, Direction.DOWN);
+                        game.stopCrouchKnight(P2);
                         break;
                     case KeyEvent.VK_J:
                         game.stopKnight(P2, Direction.LEFT);
