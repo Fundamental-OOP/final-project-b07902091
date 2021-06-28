@@ -1,29 +1,24 @@
 package characters.knight;
 
 import fsm.FiniteStateMachine;
-import fsm.ImageRenderer;
-import fsm.ImageState;
-import fsm.State;
-import fsm.WaitingPerFrame;
 import model.Direction;
-import model.HealthPointSprite;
+import model.MagicPointSprite;
 import model.SpriteShape;
 
 import java.awt.*;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import static characters.knight.Knight.Event.*;
-import static fsm.FiniteStateMachine.Transition.from;
 import static model.Direction.LEFT;
-import static utils.ImageStateUtils.imageStatesFromFolder;
 
 /**
  * @author - johnny850807@gmail.com (Waterball)
  */
-public class Knight extends HealthPointSprite {
+public class Knight extends MagicPointSprite {
     public static final int KNIGHT_HP = 500;
+    public static final int KNIGHT_MP = 200;
+
     private SpriteShape shape;
     private SpriteShape crouchShape;
     private FiniteStateMachine fsm;
@@ -35,7 +30,7 @@ public class Knight extends HealthPointSprite {
     }
 
     public Knight(int damage, Point location) {
-        super(KNIGHT_HP);
+        super(KNIGHT_HP, KNIGHT_MP);
         this.damage = damage;
         this.location = location;
     }
