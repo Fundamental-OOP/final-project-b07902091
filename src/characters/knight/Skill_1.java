@@ -25,4 +25,8 @@ public class Skill_1 extends Sequence {
         knight.triggerSpell();
     }
 
+    @Override
+    public String toString() {
+        return "Skill_1";
+    }
 }

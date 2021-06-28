@@ -50,6 +50,7 @@ public class Emily extends Knight {
                 State kicking = new WaitingPerFrame(10, new EmilyKicking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("kick"), imageRenderer)));
 
+                                
                 fsm.setInitialState(idle);
                 fsm.addTransition(from(idle).when(Event.WALK).to(walking));
                 fsm.addTransition(from(walking).when(Event.STOP).to(idle));
@@ -65,6 +66,7 @@ public class Emily extends Knight {
 
                 fsm.addTransition(from(idle).when(Event.SKILL_1).to(skill_1));
                 fsm.addTransition(from(walking).when(Event.SKILL_1).to(skill_1));
+                fsm.addTransition(from(crouch).when(Event.SKILL_1).to(skill_1));
 
                 fsm.addTransition(from(idle).when(Event.KICK).to(kicking));
                 fsm.addTransition(from(walking).when(Event.KICK).to(kicking));

@@ -98,13 +98,16 @@ public class Knight extends HealthPointSprite {
 
     public void skill_1() {
         fsm.trigger(SKILL_1);
-        spell = new Fireball(this);
-        world.addSprite(spell);
+        if (fsm.currentState().toString().equals("Skill_1")) {
+            spell = new Fireball(this);
+            world.addSprite(spell);
+        }
     }
 
     public void triggerSpell() {
         spell.done();
     }
+
     public void update() {
         fsm.update();
     }
@@ -147,7 +150,5 @@ public class Knight extends HealthPointSprite {
         else
             return crouchShape.bodySize;
     }
-
-
 
 }
