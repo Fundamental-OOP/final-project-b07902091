@@ -11,7 +11,8 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Collection;
-
+import java.time.LocalTime;
+import java.time.ZoneId;
 /**
  * @author - johnny850807@gmail.com (Waterball)
  */
@@ -20,9 +21,18 @@ public class GameView extends JFrame {
     public static final int WIDTH = 500;
     public static final int P1 = 1;
     public static final int P2 = 2;
+    //detect when the key is pressed  for P1
+    private static int F_last_pressed = 0;
+    private static int A_last_pressed = 0;
+    private static int D_last_pressed = 0;
+    //detect when the key is pressed  for P2
+    private static int LEFT_last_pressed = 0;
+    private static int RIGHT_last_pressed = 0;
+    private static int K_last_pressed = 0;
     private final Canvas canvas = new Canvas();
     private final Game game;
-
+    
+    
     public GameView(Game game) throws HeadlessException {
         this.game = game;
         game.setView(canvas);
@@ -48,29 +58,69 @@ public class GameView extends JFrame {
                         game.crouchKnight(P1);
                         break;
                     case KeyEvent.VK_A:
+                        A_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         game.moveKnight(P1, Direction.LEFT);
                         break;
                     case KeyEvent.VK_D:
+                        D_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         game.moveKnight(P1, Direction.RIGHT);
                         break;
                     case KeyEvent.VK_F:
-                        game.attack(P1);
+                        F_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
+                        if(F_last_pressed - A_last_pressed < 1){
+                            System.out.println("First skill of P1 to the left");
+                        }
+                        else if(F_last_pressed - D_last_pressed < 1){
+                            System.out.println("First skill of P1 to the right");
+                        }
+                        //System.out.println(F_last_pressed);
+                        else{
+                            game.attack(P1);
+                        }
                         break;
-                    case KeyEvent.VK_I:
+                    //kick for P1    
+                    //case KeyEvent.VK_G:
+                    //    game.kick(P1);
+                    //    break;
+                    //kick for P1    
+                    //case KeyEvent.VK_E:
+                    //    game.change_hero(P1);
+                    //    break;
+                    case KeyEvent.VK_UP:
                         game.jumpKnight(P2);
                         break;
-                    case KeyEvent.VK_K:
+                    case KeyEvent.VK_DOWN:
                         game.crouchKnight(P2);
                         break;
-                    case KeyEvent.VK_J:
+                    case KeyEvent.VK_LEFT:
+                        LEFT_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         game.moveKnight(P2, Direction.LEFT);
                         break;
-                    case KeyEvent.VK_L:
+                    case KeyEvent.VK_RIGHT:
+                        RIGHT_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         game.moveKnight(P2, Direction.RIGHT);
                         break;
-                    case KeyEvent.VK_U:
-                        game.attack(P2);
+                    case KeyEvent.VK_K:
+                        K_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
+                        if(K_last_pressed - LEFT_last_pressed < 1){
+                            System.out.println("First skill of P2 to the left");
+                        }
+                        else if(K_last_pressed - RIGHT_last_pressed < 1){
+                            System.out.println("First skill of P2 to the right");
+                        }
+                        else{
+                            game.attack(P2);
+                        }
+                        
                         break;
+                    //kick for P2
+                    //case KeyEvent.VK_L:
+                    //    game.attack(P2);
+                    //    break;
+                     //kick for P2
+                    //case KeyEvent.VK_P:
+                    //    game.change_hero(P2);
+                    //    break;
                 }
             }
 
@@ -89,16 +139,16 @@ public class GameView extends JFrame {
                     case KeyEvent.VK_D:
                         game.stopKnight(P1, Direction.RIGHT);
                         break;
-                    case KeyEvent.VK_I:
+                    case KeyEvent.VK_UP:
                         game.stopKnight(P2, Direction.UP);
                         break;
-                    case KeyEvent.VK_K:
+                    case KeyEvent.VK_DOWN:
                         game.stopCrouchKnight(P2);
                         break;
-                    case KeyEvent.VK_J:
+                    case KeyEvent.VK_LEFT:
                         game.stopKnight(P2, Direction.LEFT);
                         break;
-                    case KeyEvent.VK_L:
+                    case KeyEvent.VK_RIGHT:
                         game.stopKnight(P2, Direction.RIGHT);
                         break;
                 }
