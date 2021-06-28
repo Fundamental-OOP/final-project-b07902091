@@ -41,7 +41,7 @@ public class GameView extends JFrame {
             @Override
             public void keyPressed(KeyEvent keyEvent) {
                 switch (keyEvent.getKeyCode()) {
-                    case KeyEvent.VK_W:
+                    case KeyEvent.VK_W:// player1
                         game.jumpKnight(P1);
                         break;
                     case KeyEvent.VK_S:
@@ -56,7 +56,13 @@ public class GameView extends JFrame {
                     case KeyEvent.VK_E:
                         game.attack(P1);
                         break;
-                    case KeyEvent.VK_I:
+                    case KeyEvent.VK_Q:
+                        game.kick(P1);
+                        break;
+                    case KeyEvent.VK_F: // TODO: COMBO
+                        game.skill_1(P1);
+                        break;
+                    case KeyEvent.VK_I: // player2
                         game.jumpKnight(P2);
                         break;
                     case KeyEvent.VK_K:
@@ -70,6 +76,12 @@ public class GameView extends JFrame {
                         break;
                     case KeyEvent.VK_U:
                         game.attack(P2);
+                        break;
+                    case KeyEvent.VK_O:
+                        game.kick(P2);
+                        break;
+                    case KeyEvent.VK_H: // TODO: COMBO
+                        game.skill_1(P2);
                         break;
                 }
             }
@@ -116,7 +128,7 @@ public class GameView extends JFrame {
         }
 
         @Override
-        protected void paintComponent(Graphics g /*paintbrush*/) {
+        protected void paintComponent(Graphics g /* paintbrush */) {
             super.paintComponent(g);
             // Now, let's paint
             g.setColor(Color.WHITE); // paint background with all white

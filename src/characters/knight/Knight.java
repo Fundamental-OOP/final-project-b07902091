@@ -31,7 +31,7 @@ public class Knight extends HealthPointSprite {
     private final int damage;
 
     public enum Event {
-        WALK, STOP, ATTACK, DAMAGED, CRUOCH, JUMP, STOP_CROUCH
+        WALK, STOP, ATTACK, DAMAGED, CRUOCH, JUMP, STOP_CROUCH, SKILL_1, KICK
     }
 
     public Knight(int damage, Point location) {
@@ -48,6 +48,10 @@ public class Knight extends HealthPointSprite {
 
     public void attack() {
         fsm.trigger(ATTACK);
+    }
+
+    public void kick() {
+        fsm.trigger(KICK);
     }
 
     public int getDamage() {
@@ -90,6 +94,9 @@ public class Knight extends HealthPointSprite {
         }
     }
 
+    public void skill_1() {
+        fsm.trigger(SKILL_1);
+    }
     public void update() {
         fsm.update();
     }
@@ -132,4 +139,6 @@ public class Knight extends HealthPointSprite {
         else
             return crouchShape.bodySize;
     }
+
+
 }

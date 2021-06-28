@@ -4,6 +4,7 @@ import fsm.State;
 import fsm.StateMachine;
 
 import java.awt.*;
+import java.util.HashSet;
 import java.util.List;
 
 import characters.knight.Attacking;
@@ -16,6 +17,11 @@ public class GrayAttacking extends Attacking {
 
     public GrayAttacking(Knight knight, StateMachine stateMachine, List<? extends State> states) {
         super(knight, stateMachine, states);
+        init();
+    }
+
+    private void init() {
+        damagingStateNumbers = new HashSet<>(List.of(7));
     }
 
     @Override

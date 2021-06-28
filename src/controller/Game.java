@@ -41,6 +41,14 @@ public class Game extends GameLoop {
         getPlayer(playerNumber).attack();
     }
 
+    public void kick(int playerNumber) {
+        getPlayer(playerNumber).kick();
+    }
+
+    public void skill_1(int playerNumber) {
+        getPlayer(playerNumber).skill_1();
+    }
+
     public Knight getPlayer(int playerNumber) {
         return playerNumber == 1 ? p1 : p2;
     }
@@ -49,4 +57,5 @@ public class Game extends GameLoop {
     protected World getWorld() {
         return world;
     }
+
 }
