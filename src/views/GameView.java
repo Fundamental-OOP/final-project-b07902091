@@ -63,25 +63,19 @@ public class GameView extends JFrame {
                         game.crouchKnight(P1);
                         break;
                     case KeyEvent.VK_A:
-                        // A_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         game.moveKnight(P1, Direction.LEFT);
                         break;
                     case KeyEvent.VK_D:
-                        // D_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         game.moveKnight(P1, Direction.RIGHT);
                         break;
                     case KeyEvent.VK_F:
                         F_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         if (F_last_pressed - S_last_pressed < 1 && S_double_pressed) {
-                            System.out.println("First skill of P1 to the left");
                             game.skill_1(P1);
-                        }
-                        // System.out.println(F_last_pressed);
-                        else {
+                        } else {
                             game.attack(P1);
                         }
                         break;
-                    // kick for P1
                     case KeyEvent.VK_G:
                         game.kick(P1);
                         break;
@@ -105,14 +99,12 @@ public class GameView extends JFrame {
                     case KeyEvent.VK_K:
                         K_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         if (K_last_pressed - DOWN_last_pressed < 1 && DOWN_double_pressed) {
-                            System.out.println("First skill of P2 to the left");
                             game.skill_1(P2);
                         } else {
                             game.attack(P2);
                         }
 
                         break;
-                    // kick for P2
                     case KeyEvent.VK_L:
                         game.kick(P2);
                         break;
@@ -125,21 +117,13 @@ public class GameView extends JFrame {
 
             private void detect_S_double_pressed() {
                 int temp = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
-                if (temp - S_last_pressed < 1) {
-                    S_double_pressed = true;
-                } else {
-                    S_double_pressed = false;
-                }
+                S_double_pressed = (temp - S_last_pressed < 1);
                 S_last_pressed = temp;
             }
 
             private void detect_DOWN_double_pressed() {
                 int temp = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
-                if (temp - DOWN_last_pressed < 1) {
-                    DOWN_double_pressed = true;
-                } else {
-                    DOWN_double_pressed = false;
-                }
+                DOWN_double_pressed = (temp - DOWN_last_pressed < 1);
                 DOWN_last_pressed = temp;
             }
 

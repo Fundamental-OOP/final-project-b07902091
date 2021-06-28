@@ -21,12 +21,12 @@ public class GrayAttacking extends Attacking {
     }
 
     private void init() {
-        damagingStateNumbers = new HashSet<>(List.of(7));
+        damagingStateNumbers = new HashSet<>(List.of(2));
     }
 
     @Override
     protected Rectangle damageArea() {
-        return knight.getArea(new Dimension(0, 50),//box offset x, y
-                new Dimension(155, 78));//box width, box height
+        return knight.getArea(new Dimension(80, 65), // box offset x, y
+                new Dimension(60, 40));// box width, box height
     }
 }

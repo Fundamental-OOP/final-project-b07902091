@@ -41,7 +41,7 @@ public class Gray extends Knight {
                                 new Idle(imageStatesFromFolder(filepath.concat("idle"), imageRenderer)));
                 State walking = new WaitingPerFrame(2,
                                 new Walking(this, imageStatesFromFolder(filepath.concat("walking"), imageRenderer)));
-                State attacking = new WaitingPerFrame(3, new GrayAttacking(this, fsm,
+                State attacking = new WaitingPerFrame(10, new GrayAttacking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("attack"), imageRenderer)));
                 State jumping = new WaitingPerFrame(4, new Jumping(this, fsm,
                                 imageStatesFromFolder(filepath.concat("jumping"), imageRenderer)));
@@ -51,7 +51,7 @@ public class Gray extends Knight {
                                 new Skill_1(this, fsm,
                                                 imageStatesFromFolder(skillpath.concat("lighting"), skillRenderer),
                                                 imageStatesFromFolder(filepath.concat("cast"), imageRenderer)));
-                State kicking = new WaitingPerFrame(10, new GrayKicking(this, fsm,
+                State kicking = new WaitingPerFrame(3, new GrayKicking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("kick"), imageRenderer)));
                 fsm.setInitialState(idle);
                 fsm.addTransition(from(idle).when(Event.WALK).to(walking));

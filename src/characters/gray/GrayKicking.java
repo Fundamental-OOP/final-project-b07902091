@@ -9,6 +9,7 @@ import java.util.List;
 
 import characters.knight.Knight;
 import characters.knight.Attacking;
+
 /**
  * @author - johnny850807@gmail.com (Waterball)
  */
@@ -20,21 +21,12 @@ public class GrayKicking extends Attacking {
     }
 
     private void init() {
-        damagingStateNumbers = new HashSet<>(List.of(2));
-    }
-    @Override
-    public void update() {
-        if (knight.isAlive()) {
-            super.update();
-            if (damagingStateNumbers.contains(currentPosition)) {
-                effectDamage();
-            }
-        }
+        damagingStateNumbers = new HashSet<>(List.of(7));
     }
 
     @Override
     protected Rectangle damageArea() {
-        return knight.getArea(new Dimension(80, 15), // box offset x, y
-                new Dimension(160, 40));// box width, box height
+        return knight.getArea(new Dimension(0, 50), // box offset x, y
+                new Dimension(155, 78));// box width, box height
     }
 }
