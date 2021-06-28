@@ -3,14 +3,14 @@ package views;
 import controller.Game;
 import controller.GameLoop;
 import model.Direction;
-import model.Sprite;
 import model.World;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Collection;
+import java.time.LocalTime;
+import java.time.ZoneId;
 
 /**
  * @author - johnny850807@gmail.com (Waterball)
@@ -20,6 +20,20 @@ public class GameView extends JFrame {
     public static final int WIDTH = 500;
     public static final int P1 = 1;
     public static final int P2 = 2;
+
+    // detect when the key is pressed for P1
+    private static int F_last_pressed = 0;
+
+    // detect when the key is pressed for P2
+    private static int K_last_pressed = 0;
+
+    // when crouch is pressed for P1
+    private static int S_last_pressed = 0;
+    private static boolean S_double_pressed = false;
+    // when crouch is pressed for P2
+    private static int DOWN_last_pressed = 0;
+    private static boolean DOWN_double_pressed = false;
+
     private final Canvas canvas = new Canvas();
     private final Game game;
 
@@ -45,45 +59,88 @@ public class GameView extends JFrame {
                         game.jumpKnight(P1);
                         break;
                     case KeyEvent.VK_S:
+                        detect_S_double_pressed();
                         game.crouchKnight(P1);
                         break;
                     case KeyEvent.VK_A:
+                        // A_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         game.moveKnight(P1, Direction.LEFT);
                         break;
                     case KeyEvent.VK_D:
+                        // D_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         game.moveKnight(P1, Direction.RIGHT);
                         break;
-                    case KeyEvent.VK_E:
-                        game.attack(P1);
+                    case KeyEvent.VK_F:
+                        F_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
+                        if (F_last_pressed - S_last_pressed < 1 && S_double_pressed) {
+                            System.out.println("First skill of P1 to the left");
+                            game.skill_1(P1);
+                        }
+                        // System.out.println(F_last_pressed);
+                        else {
+                            game.attack(P1);
+                        }
                         break;
-                    case KeyEvent.VK_Q:
+                    // kick for P1
+                    case KeyEvent.VK_G:
                         game.kick(P1);
                         break;
-                    case KeyEvent.VK_F: // TODO: COMBO
-                        game.skill_1(P1);
-                        break;
-                    case KeyEvent.VK_I: // player2
+                    // kick for P1
+                    // case KeyEvent.VK_E:
+                    // game.change_hero(P1);
+                    // break;
+                    case KeyEvent.VK_UP:
                         game.jumpKnight(P2);
                         break;
-                    case KeyEvent.VK_K:
+                    case KeyEvent.VK_DOWN:
+                        detect_DOWN_double_pressed();
                         game.crouchKnight(P2);
                         break;
-                    case KeyEvent.VK_J:
+                    case KeyEvent.VK_LEFT:
                         game.moveKnight(P2, Direction.LEFT);
                         break;
-                    case KeyEvent.VK_L:
+                    case KeyEvent.VK_RIGHT:
                         game.moveKnight(P2, Direction.RIGHT);
                         break;
-                    case KeyEvent.VK_U:
-                        game.attack(P2);
+                    case KeyEvent.VK_K:
+                        K_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
+                        if (K_last_pressed - DOWN_last_pressed < 1 && DOWN_double_pressed) {
+                            System.out.println("First skill of P2 to the left");
+                            game.skill_1(P2);
+                        } else {
+                            game.attack(P2);
+                        }
+
                         break;
-                    case KeyEvent.VK_O:
+                    // kick for P2
+                    case KeyEvent.VK_L:
                         game.kick(P2);
                         break;
-                    case KeyEvent.VK_H: // TODO: COMBO
-                        game.skill_1(P2);
-                        break;
+                    // kick for P2
+                    // case KeyEvent.VK_P:
+                    // game.change_hero(P2);
+                    // break;
                 }
+            }
+
+            private void detect_S_double_pressed() {
+                int temp = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
+                if (temp - S_last_pressed < 1) {
+                    S_double_pressed = true;
+                } else {
+                    S_double_pressed = false;
+                }
+                S_last_pressed = temp;
+            }
+
+            private void detect_DOWN_double_pressed() {
+                int temp = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
+                if (temp - DOWN_last_pressed < 1) {
+                    DOWN_double_pressed = true;
+                } else {
+                    DOWN_double_pressed = false;
+                }
+                DOWN_last_pressed = temp;
             }
 
             @Override
@@ -101,16 +158,16 @@ public class GameView extends JFrame {
                     case KeyEvent.VK_D:
                         game.stopKnight(P1, Direction.RIGHT);
                         break;
-                    case KeyEvent.VK_I:
+                    case KeyEvent.VK_UP:
                         game.stopKnight(P2, Direction.UP);
                         break;
-                    case KeyEvent.VK_K:
+                    case KeyEvent.VK_DOWN:
                         game.stopCrouchKnight(P2);
                         break;
-                    case KeyEvent.VK_J:
+                    case KeyEvent.VK_LEFT:
                         game.stopKnight(P2, Direction.LEFT);
                         break;
-                    case KeyEvent.VK_L:
+                    case KeyEvent.VK_RIGHT:
                         game.stopKnight(P2, Direction.RIGHT);
                         break;
                 }
