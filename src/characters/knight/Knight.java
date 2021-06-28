@@ -24,6 +24,7 @@ import static utils.ImageStateUtils.imageStatesFromFolder;
  */
 public class Knight extends HealthPointSprite {
     public static final int KNIGHT_HP = 500;
+    public static final int KNIGHT_MP = 200;
     private SpriteShape shape;
     private SpriteShape crouchShape;
     private FiniteStateMachine fsm;
@@ -35,7 +36,7 @@ public class Knight extends HealthPointSprite {
     }
 
     public Knight(int damage, Point location) {
-        super(KNIGHT_HP);
+        super(KNIGHT_HP,KNIGHT_MP);
         this.damage = damage;
         this.location = location;
     }
