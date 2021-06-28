@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import characters.knight.Knight;
+import skill.Fireball;
+
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toSet;
 
@@ -79,8 +81,12 @@ public class World {
     private void correctBoundary(Sprite sprite) {
         if (sprite.getLocation().getX() + sprite.getBodySize().getWidth() < 0) {
             sprite.setLocation(new Point(0, (int) sprite.getLocation().getY()));
+            if (sprite instanceof Fireball)
+                sprite.onDamaged(sprite.getBody(), ((Fireball) sprite).FIREBALL_HP);
         } else if (sprite.getLocation().getX() > 394) {
             sprite.setLocation(new Point(394, (int) sprite.getLocation().getY()));
+            if (sprite instanceof Fireball)
+                sprite.onDamaged(sprite.getBody(), ((Fireball) sprite).FIREBALL_HP);
         }
     }
 

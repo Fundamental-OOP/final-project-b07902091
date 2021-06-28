@@ -7,7 +7,6 @@ import characters.knight.Idle;
 import characters.knight.Jumping;
 import characters.knight.Knight;
 import characters.knight.KnightImageRenderer;
-import characters.knight.SkillImageRenderer;
 import characters.knight.Skill_1;
 import characters.knight.Walking;
 import fsm.FiniteStateMachine;
@@ -16,6 +15,7 @@ import fsm.State;
 import fsm.WaitingPerFrame;
 import model.Direction;
 import model.SpriteShape;
+import skill.SkillImageRenderer;
 
 import static fsm.FiniteStateMachine.Transition.from;
 import static utils.ImageStateUtils.imageStatesFromFolder;
@@ -34,7 +34,6 @@ public class Emily extends Knight {
                 FiniteStateMachine fsm = new FiniteStateMachine();
 
                 ImageRenderer imageRenderer = new KnightImageRenderer(this);
-                ImageRenderer skillRenderer = new SkillImageRenderer(this);
 
                 State idle = new WaitingPerFrame(4,
                                 new Idle(imageStatesFromFolder(filepath.concat("idle"), imageRenderer)));
@@ -47,9 +46,7 @@ public class Emily extends Knight {
                 State crouch = new WaitingPerFrame(4,
                                 new Crouch(this, imageStatesFromFolder(filepath.concat("crouch"), imageRenderer)));
                 State skill_1 = new WaitingPerFrame(7,
-                                new Skill_1(this, fsm,
-                                                imageStatesFromFolder(skillpath.concat("lighting"), skillRenderer),
-                                                imageStatesFromFolder(filepath.concat("cast"), imageRenderer)));
+                                new Skill_1(this, fsm, imageStatesFromFolder(filepath.concat("cast"), imageRenderer)));
                 State kicking = new WaitingPerFrame(10, new EmilyKicking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("kick"), imageRenderer)));
 

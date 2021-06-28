@@ -22,14 +22,15 @@ public class Game extends GameLoop {
         getPlayer(playerNumber).move(direction);
     }
 
-    public void jumpKnight(int playerNumber){
+    public void jumpKnight(int playerNumber) {
         getPlayer(playerNumber).jump();
     }
 
-    public void crouchKnight(int playerNumber){
+    public void crouchKnight(int playerNumber) {
         getPlayer(playerNumber).crouch();
     }
-    public void stopCrouchKnight(int playerNumber){
+
+    public void stopCrouchKnight(int playerNumber) {
         getPlayer(playerNumber).stopCrouch();
     }
 

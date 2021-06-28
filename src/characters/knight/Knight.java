@@ -8,6 +8,7 @@ import fsm.WaitingPerFrame;
 import model.Direction;
 import model.HealthPointSprite;
 import model.SpriteShape;
+import skill.Fireball;
 
 import java.awt.*;
 import java.util.List;
@@ -29,6 +30,7 @@ public class Knight extends HealthPointSprite {
     private FiniteStateMachine fsm;
     private final Set<Direction> directions = new CopyOnWriteArraySet<>();
     private final int damage;
+    private Fireball spell;
 
     public enum Event {
         WALK, STOP, ATTACK, DAMAGED, CRUOCH, JUMP, STOP_CROUCH, SKILL_1, KICK
@@ -96,6 +98,12 @@ public class Knight extends HealthPointSprite {
 
     public void skill_1() {
         fsm.trigger(SKILL_1);
+        spell = new Fireball(this);
+        world.addSprite(spell);
+    }
+
+    public void triggerSpell() {
+        spell.done();
     }
     public void update() {
         fsm.update();
@@ -139,6 +147,7 @@ public class Knight extends HealthPointSprite {
         else
             return crouchShape.bodySize;
     }
+
 
 
 }

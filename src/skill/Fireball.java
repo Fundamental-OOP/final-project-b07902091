@@ -1,122 +1,97 @@
-Skip to content
-Fundamental-OOP
-/
-final-project-b07902091
-Private
-Code
-Issues
-Pull requests
-1
-Actions
-More
-final-project-b07902091/src/characters/gray/GrayKicking.java /
-@Shine0417
-Shine0417 done combo and skill(temp)
- History
- 1 contributor
-32 lines (25 sloc)  764 Bytes
-package characters.<<character name>>;
-
-import fsm.State;
-import fsm.StateMachine;
+package skill;
 
 import java.awt.*;
-import java.util.HashSet;
-import java.util.List;
-
 import characters.knight.Knight;
-import characters.knight.Attacking;
+import fsm.FiniteStateMachine;
+import fsm.State;
+import fsm.WaitingPerFrame;
+import model.Direction;
+import model.HealthPointSprite;
+import model.SpriteShape;
+import static fsm.FiniteStateMachine.Transition.from;
+import static utils.ImageStateUtils.imageStatesFromFolder;
+import static skill.Fireball.Event.*;
 
-/**
- * @author - johnny850807@gmail.com (Waterball)
- */
-public class Fireball extends Attacking {
-    //  Sound Effect 
-    public static final String AUDIO_FIREBALL = "fireball";
+public class Fireball extends HealthPointSprite {
+    public static final int FIREBALL_HP = 1;
+    private Direction direction;
+    private Knight caster;
+    private SpriteShape shape;
+    private FiniteStateMachine fsm;
+    private int damage;
 
-    // variables 
-    private final Knight attacker;
-    private final Knight target;
-    
-    private final Integer damage = 40;
-    private final Integer cost = 20;
-
-    private final StateMachine stateMachine;
-    private final Set<Integer> damagingStateNumbers = new HashSet<>(List.of(6));
-
-    // specified the target and attacker 
-    public Lightning(Knight attacker,Knight target, StateMachine stateMachine, List<? extends State> states) {
-        super(attacker, stateMachine, states);
-        this.target = target;
-        init();
+    public enum Event {
+        DONE, HIT
     }
-    private void init() {
-        damagingStateNumbers = new HashSet<>(List.of(7));
+
+    public Fireball(Knight caster) {
+        super(FIREBALL_HP);
+        this.direction = caster.getFace();
+        face = this.direction;
+        this.caster = caster;
+        this.location = new Point(caster.getLocation().x, caster.getLocation().y);
+        this.shape = new SpriteShape(new Dimension(146, 176), new Dimension(86, 60), new Dimension(36, 55));
+        this.fsm = new FiniteStateMachine();
+        this.damage = 200;
+
+        String filepath = "assets/skill/";
+        SkillImageRenderer imageRenderer = new SkillImageRenderer(this);
+
+        State casting = new WaitingPerFrame(3,
+                new Casting(this, imageStatesFromFolder(filepath.concat("fireball/casting"), imageRenderer)));
+        State flying = new WaitingPerFrame(4,
+                new Flying(this, imageStatesFromFolder(filepath.concat("fireball/flying"), imageRenderer)));
+        State triggered = new WaitingPerFrame(4,
+                new Triggered(this, imageStatesFromFolder(filepath.concat("fireball/trigger"), imageRenderer)));
+
+        fsm.setInitialState(casting);
+        fsm.addTransition(from(casting).when(DONE).to(flying));
+        fsm.addTransition(from(flying).when(HIT).to(triggered));
     }
-  @Override
-    // if attacker is alive
-    // cast the skill
+
+    public void done() {
+        fsm.trigger(DONE);
+    }
+
+    public void hit() {
+        fsm.trigger(HIT);
+    }
+
     public void update() {
-        if (attacker.isAlive()) {
-            super.update();
-            if (damagingStateNumbers.contains(currentPosition)) {
-                effectDamage();
-            }
-        }
+        fsm.update();
     }
 
     @Override
-    // draw the bound box of the skill
     public void render(Graphics g) {
-        super.render(g);
-         Rectangle damageArea = damageArea();
-         g.setColor(Color.BLUE);
-         g.drawRect(damageArea.x, damageArea.y, damageArea.width, damageArea.height);
+        // super.render(g);
+        fsm.render(g);
+        // Rectangle range = getRange();
+        // g.setColor(Color.RED);
+        // g.fillRect(range.x, range.y, (int) getRange().getWidth(), range.height);
+        // fsm.render(g);
     }
 
-    @Override
-    // check the casted skill status
-    private void effectDamage() {
-        World world = attacker.getWorld();
-        Rectangle damageArea = damageArea();
-        var sprites = world.getSprites(damageArea);
-        boolean hasClash = false;
-        // deal damage to specific target only 
-        for (Sprite sprite : sprites) {
-            if (target == sprite) {
-                // deal damage to target
-                sprite.onDamaged(damageArea, damage);
-                // deduct attacker MP
-                attacker.useMP(cost);
-            }
-        }
-        if (hasClash) {
-            AudioPlayer.playSounds(AUDIO_FIREBALL);
-        } 
+    public Rectangle getRange() {
+        return new Rectangle(location, shape.size);
     }
 
-    //  determine the skill area 
-    @Override
-    protected Rectangle damageArea() {
-        return  attacker.getArea(new Dimension(100, 38),
-                new Dimension(1500, 105));
+    public Dimension getBodyOffset() {
+        return shape.bodyOffset;
     }
 
-    @Override
-    protected void onSequenceEnd() {
-        currentPosition = 0;
-        stateMachine.reset();
+    public Dimension getBodySize() {
+        return shape.bodySize;
+    }
+
+    public Knight getCaster() {
+        return caster;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 }
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
