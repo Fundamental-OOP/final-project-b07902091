@@ -1,4 +1,4 @@
-package skill.LightningBall;
+package skill.Lightningball;
 
 import java.awt.Rectangle;
 import java.util.List;

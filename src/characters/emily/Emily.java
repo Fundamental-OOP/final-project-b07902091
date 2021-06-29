@@ -11,7 +11,7 @@ import model.Direction;
 import model.SpriteShape;
 import skill.IceWall.IceWall;
 import skill.Lightning.Lightning;
-import skill.LightningBall.LightningBall;
+import skill.Lightningball.LightningBall;
 
 import static utils.ImageStateUtils.imageStatesFromFolder;
 import static characters.knight.Knight.Event.*;
