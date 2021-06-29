@@ -6,7 +6,7 @@ import fsm.StateMachine;
 import media.AudioPlayer;
 import model.Sprite;
 import model.World;
-import skill.Fireball;
+import skill.Fireball.Fireball;
 
 import java.awt.*;
 import java.util.HashSet;

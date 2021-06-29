@@ -7,7 +7,7 @@ import characters.knight.Idle;
 import characters.knight.Jumping;
 import characters.knight.Knight;
 import characters.knight.KnightImageRenderer;
-import characters.knight.Skill_1;
+import characters.knight.Skill;
 import characters.knight.Walking;
 import fsm.FiniteStateMachine;
 import fsm.ImageRenderer;
@@ -15,10 +15,16 @@ import fsm.State;
 import fsm.WaitingPerFrame;
 import model.Direction;
 import model.SpriteShape;
-import skill.SkillImageRenderer;
+import skill.Fire.Fire;
+import skill.FireRing.FireRing;
+import skill.Fireball.Fireball;
+import skill.Fireball.SkillImageRenderer;
+import skill.IceWall.IceWall;
+import skill.Lightningball.Lightningball;
 
 import static fsm.FiniteStateMachine.Transition.from;
 import static utils.ImageStateUtils.imageStatesFromFolder;
+import static characters.knight.Knight.Event.*;
 
 public class Emily extends Knight {
 
@@ -46,11 +52,10 @@ public class Emily extends Knight {
                 State crouch = new WaitingPerFrame(4,
                                 new Crouch(this, imageStatesFromFolder(filepath.concat("crouch"), imageRenderer)));
                 State skill_1 = new WaitingPerFrame(7,
-                                new Skill_1(this, fsm, imageStatesFromFolder(filepath.concat("cast"), imageRenderer)));
+                                new Skill(this, fsm, imageStatesFromFolder(filepath.concat("cast"), imageRenderer)));
                 State kicking = new WaitingPerFrame(10, new EmilyKicking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("kick"), imageRenderer)));
 
-                                
                 fsm.setInitialState(idle);
                 fsm.addTransition(from(idle).when(Event.WALK).to(walking));
                 fsm.addTransition(from(walking).when(Event.STOP).to(idle));
@@ -76,4 +81,26 @@ public class Emily extends Knight {
                 init(shape, crouchShape, fsm);
         }
 
+        @Override
+        public void skill(int id) {
+                if (id == 1) {
+                        fsm.trigger(SKILL_1);
+                        if (fsm.currentState().toString().equals("Skill")) {
+                                spell = new Fireball(this, 1);
+                                world.addSprite(spell);
+                        }
+                } else if (id == 2) {
+                        fsm.trigger(SKILL_2);
+                        if (fsm.currentState().toString().equals("Skill")) {
+                                spell = new Lightningball(this, 1);
+                                world.addSprite(spell);
+                        }
+                } else if (id == 3) {
+                        fsm.trigger(SKILL_3);
+                        if (fsm.currentState().toString().equals("Skill")) {
+                                spell = new FireRing(this, 1);
+                                world.addSprite(spell);
+                        }
+                }
+        }
 }

@@ -16,8 +16,8 @@ import java.time.ZoneId;
  * @author - johnny850807@gmail.com (Waterball)
  */
 public class GameView extends JFrame {
-    public static final int HEIGHT = 500;
-    public static final int WIDTH = 500;
+    public static final int HEIGHT = 800;
+    public static final int WIDTH = 1300;
     public static final int P1 = 1;
     public static final int P2 = 2;
 
@@ -71,7 +71,7 @@ public class GameView extends JFrame {
                     case KeyEvent.VK_F:
                         F_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         if (F_last_pressed - S_last_pressed < 1 && S_double_pressed) {
-                            game.skill_1(P1);
+                            game.skill(P1, 1);
                         } else {
                             game.attack(P1);
                         }
@@ -99,7 +99,7 @@ public class GameView extends JFrame {
                     case KeyEvent.VK_K:
                         K_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
                         if (K_last_pressed - DOWN_last_pressed < 1 && DOWN_double_pressed) {
-                            game.skill_1(P2);
+                            game.skill(P2, 1);
                         } else {
                             game.attack(P2);
                         }

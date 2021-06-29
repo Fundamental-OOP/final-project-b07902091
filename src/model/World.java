@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import characters.knight.Knight;
-import skill.Fireball;
+import skill.Fireball.Fireball;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toSet;
@@ -15,6 +15,9 @@ import static java.util.stream.Collectors.toSet;
  * @author - johnny850807@gmail.com (Waterball)
  */
 public class World {
+    private final int BOUNDDRY_X = 1200;
+    private final int BOUNDDRY_Y = 1000;
+
     private final List<Sprite> sprites = new CopyOnWriteArrayList<>();
     private final CollisionHandler collisionHandler;
 
@@ -72,7 +75,7 @@ public class World {
         if (from instanceof Knight) {
             int leftBorder = (int) (from.getLocation().getX() + from.getBodySize().getWidth());
             int rightBorder = (int) (from.getLocation().getX());
-            if (leftBorder + offset.width < 0 || rightBorder + offset.width > 394)
+            if (leftBorder + offset.width < 0 || rightBorder + offset.width > BOUNDDRY_X)
                 return false;
         }
         return true;
@@ -83,8 +86,8 @@ public class World {
             sprite.setLocation(new Point(0, (int) sprite.getLocation().getY()));
             if (sprite instanceof Fireball)
                 sprite.onDamaged(sprite.getBody(), ((Fireball) sprite).FIREBALL_HP);
-        } else if (sprite.getLocation().getX() > 394) {
-            sprite.setLocation(new Point(394, (int) sprite.getLocation().getY()));
+        } else if (sprite.getLocation().getX() > BOUNDDRY_X) {
+            sprite.setLocation(new Point(BOUNDDRY_X, (int) sprite.getLocation().getY()));
             if (sprite instanceof Fireball)
                 sprite.onDamaged(sprite.getBody(), ((Fireball) sprite).FIREBALL_HP);
         }
@@ -98,5 +101,9 @@ public class World {
         for (Sprite sprite : sprites) {
             sprite.render(g);
         }
+    }
+
+    public int getWidth() {
+        return BOUNDDRY_X;
     }
 }

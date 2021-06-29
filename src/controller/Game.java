@@ -46,8 +46,8 @@ public class Game extends GameLoop {
         getPlayer(playerNumber).kick();
     }
 
-    public void skill_1(int playerNumber) {
-        getPlayer(playerNumber).skill_1();
+    public void skill(int playerNumber, int skill_id) {
+        getPlayer(playerNumber).skill(skill_id);
     }
 
     public Knight getPlayer(int playerNumber) {
