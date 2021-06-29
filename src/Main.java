@@ -9,6 +9,7 @@ import views.GameView;
 
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 
 import characters.emily.Emily;
 import characters.emily.EmilyAttacking;
@@ -19,6 +20,7 @@ import characters.knight.Attacking;
 import characters.knight.Knight;
 import characters.knight.KnightCollisionHandler;
 import characters.knight.Walking;
+import java.util.List;
 
 import static media.AudioPlayer.addAudioByFilePath;
 
@@ -32,12 +34,22 @@ public class Main {
     public static void main(String[] args) {
         addAudio();
 
+        List<Knight> player1 = new ArrayList<>();
+        List<Knight> player2 = new ArrayList<>();
         // initialization procedure
         Knight p1 = new Gray(100, new Point(300, 300), Direction.RIGHT);
+        Knight p3 = new Emily(100, new Point(300, 300), Direction.RIGHT);
+        player1.add(p1);
+        player1.add(p3);
+
         Knight p2 = new Emily(150, new Point(700, 300), Direction.LEFT);
+        Knight p4 = new Gray(150, new Point(700, 300), Direction.LEFT);
+        player2.add(p2);
+        player2.add(p4);
+
 
         World world = new World(new KnightCollisionHandler(), p1, p2); // model
-        Game game = new Game(world, p1, p2); // controller
+        Game game = new Game(world, player1, player2); // controller
         GameView view = new GameView(game); // view
         game.start(); // run the game and the game loop
         view.launch(); // launch the GUI
@@ -54,7 +66,6 @@ public class Main {
         addAudioByFilePath(Flying.AUDIO_FIREBALL_HIT, new File("assets/skill/fireball/audio/trigger.wav"));
         addAudioByFilePath(IceWallFlying.AUDIO_ICEWALL_HIT, new File("assets/skill/iceWall/audio/trigger.wav"));
         addAudioByFilePath(LightningFlying.AUDIO_LIGHTNING_FLY, new File("assets/skill/lightning/audio/flying.wav"));
-
 
     }
 }

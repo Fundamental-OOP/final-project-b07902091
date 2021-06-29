@@ -14,7 +14,6 @@ import skill.Fire.Fire;
 import skill.Fireball.Fireball;
 
 import static utils.ImageStateUtils.imageStatesFromFolder;
-import static characters.knight.Knight.Event.*;
 
 public class Gray extends Knight {
 
@@ -29,7 +28,7 @@ public class Gray extends Knight {
         this.shape = shape;
         this.fsm = createTransitionTable();
         this.crouchShape = crouchShape;
-        
+
         super.AUDIO_CAST = AUDIO_CAST;
     }
 

@@ -5,7 +5,6 @@ import fsm.State;
 import model.Direction;
 import model.MagicPointSprite;
 import model.SpriteShape;
-import skill.FireRing.FireRing;
 import skill.Fireball.Fireball;
 
 import java.awt.*;
@@ -16,8 +15,6 @@ import static characters.knight.Knight.Event.*;
 import static model.Direction.LEFT;
 
 import static fsm.FiniteStateMachine.Transition.from;
-import static utils.ImageStateUtils.imageStatesFromFolder;
-import static characters.knight.Knight.Event.*;
 
 /**
  * @author - johnny850807@gmail.com (Waterball)
@@ -174,4 +171,15 @@ public class Knight extends MagicPointSprite {
             return crouchShape.bodySize;
     }
 
+    public boolean isDead(){
+        return this.hpBar.isDead();
+    }
+
+    public void resetFsm(){
+        fsm.reset();
+    }
+
+    public boolean isJumping(){
+        return fsm.currentState().toString().equals("Jumping");
+    }
 }
