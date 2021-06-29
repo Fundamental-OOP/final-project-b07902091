@@ -76,4 +76,9 @@ public class Attacking extends Sequence {
         stateMachine.reset();
         knight.triggerWalk();
     }
+
+    @Override
+    public String toString() {
+        return "Attacking";
+    }
 }

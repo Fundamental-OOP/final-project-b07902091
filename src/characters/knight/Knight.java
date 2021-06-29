@@ -1,6 +1,7 @@
 package characters.knight;
 
 import fsm.FiniteStateMachine;
+import fsm.State;
 import model.Direction;
 import model.MagicPointSprite;
 import model.SpriteShape;
@@ -15,6 +16,10 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import static characters.knight.Knight.Event.*;
 import static model.Direction.LEFT;
 
+import static fsm.FiniteStateMachine.Transition.from;
+import static utils.ImageStateUtils.imageStatesFromFolder;
+import static characters.knight.Knight.Event.*;
+
 /**
  * @author - johnny850807@gmail.com (Waterball)
  */
@@ -22,27 +27,53 @@ public class Knight extends MagicPointSprite {
     public static final int KNIGHT_HP = 500;
     public static final int KNIGHT_MP = 200;
 
-    private SpriteShape shape;
-    private SpriteShape crouchShape;
+    protected SpriteShape shape;
+    protected SpriteShape crouchShape;
     protected FiniteStateMachine fsm;
     private final Set<Direction> directions = new CopyOnWriteArraySet<>();
     private final int damage;
     protected Fireball spell;
 
     public enum Event {
-        WALK, STOP, ATTACK, DAMAGED, CRUOCH, JUMP, STOP_CROUCH, SKILL_1, SKILL_2, SKILL_3, KICK
+        WALK, STOP, ATTACK, DAMAGED, CRUOCH, JUMP, STOP_CROUCH, SKILL, KICK
     }
 
-    public Knight(int damage, Point location) {
+    public Knight(int damage, Point location, Direction face) {
         super(KNIGHT_HP, KNIGHT_MP);
+        this.face = face;
         this.damage = damage;
         this.location = location;
     }
 
-    public void init(SpriteShape shape, SpriteShape crouchShape, FiniteStateMachine fsm) {
-        this.shape = shape;
-        this.fsm = fsm;
-        this.crouchShape = crouchShape;
+    protected void knightTransitionTable(FiniteStateMachine fsm, State idle, State walking, State attacking,
+            State jumping, State crouch, State casting, State kicking) {
+        fsm.setInitialState(idle);
+
+        // Attack, walking and idle
+        // Kick
+        fsm.addTransition(from(idle).when(Event.WALK).to(walking));
+        fsm.addTransition(from(walking).when(Event.STOP).to(idle));
+        fsm.addTransition(from(idle).when(Event.ATTACK).to(attacking));
+        fsm.addTransition(from(walking).when(Event.ATTACK).to(attacking));
+        fsm.addTransition(from(idle).when(Event.KICK).to(kicking));
+        fsm.addTransition(from(walking).when(Event.KICK).to(kicking));
+
+        // Jump
+        fsm.addTransition(from(walking).when(Event.JUMP).to(jumping));
+        fsm.addTransition(from(idle).when(Event.JUMP).to(jumping));
+
+        // Crouch
+        fsm.addTransition(from(idle).when(Event.CRUOCH).to(crouch));
+        fsm.addTransition(from(walking).when(Event.CRUOCH).to(crouch));
+        fsm.addTransition(from(crouch).when(Event.STOP_CROUCH).to(idle));
+
+        // Skill
+        fsm.addTransition(from(idle).when(Event.SKILL).to(casting));
+        fsm.addTransition(from(walking).when(Event.SKILL).to(casting));
+        fsm.addTransition(from(crouch).when(Event.SKILL).to(casting));
+        fsm.addTransition(from(attacking).when(Event.SKILL).to(casting));
+        fsm.addTransition(from(kicking).when(Event.SKILL).to(casting));
+
     }
 
     public void attack() {
@@ -94,26 +125,7 @@ public class Knight extends MagicPointSprite {
     }
 
     public void skill(int id) {
-        if (id == 1) {
-            fsm.trigger(SKILL_1);
-            if (fsm.currentState().toString().equals("Skill")) {
-                spell = new Fireball(this, 1);
-                world.addSprite(spell);
-            }
-        } else if (id == 2) {
-            fsm.trigger(SKILL_2);
-            if (fsm.currentState().toString().equals("Skill")) {
-                spell = new Lightningball(this, 1);
-                world.addSprite(spell);
-            }
-        } else if (id == 3) {
-            fsm.trigger(SKILL_3);
-            if (fsm.currentState().toString().equals("Skill")) {
-                spell = new FireRing(this, 1);
-                world.addSprite(spell);
-            }
-        }
-
+        fsm.trigger(SKILL);
     }
 
     public void triggerSpell() {

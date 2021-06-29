@@ -5,7 +5,6 @@ import java.util.List;
 import fsm.CyclicSequence;
 import fsm.ImageState;
 import model.Direction;
-import model.SpriteShape;
 
 public class Crouch extends CyclicSequence {
     private final Knight knight;

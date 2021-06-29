@@ -8,6 +8,7 @@ import fsm.WaitingPerFrame;
 import model.Direction;
 import model.HealthPointSprite;
 import model.SpriteShape;
+import skill.ImageRenderer.SkillImageRenderer;
 
 import static fsm.FiniteStateMachine.Transition.from;
 import static skill.Fireball.Fireball.Event.*;
