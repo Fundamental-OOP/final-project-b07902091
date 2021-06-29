@@ -47,7 +47,6 @@ public class Main {
         player2.add(p2);
         player2.add(p4);
 
-
         World world = new World(new KnightCollisionHandler(), p1, p2); // model
         Game game = new Game(world, player1, player2); // controller
         GameView view = new GameView(game); // view
@@ -62,6 +61,11 @@ public class Main {
         addAudioByFilePath(Attacking.AUDIO_MISS, new File("assets/character/knight/audio/miss.wav"));
         addAudioByFilePath(Emily.AUDIO_CAST, new File("assets/character/emily/audio/cast.wav"));
         addAudioByFilePath(Gray.AUDIO_CAST, new File("assets/character/gray/audio/cast.wav"));
+
+        addAudioByFilePath(Emily.AUDIO_DEAD, new File("assets/character/emily/audio/dead.wav"));
+        addAudioByFilePath(Gray.AUDIO_DEAD, new File("assets/character/gray/audio/dead.wav"));
+        addAudioByFilePath(Emily.AUDIO_INJURED, new File("assets/character/emily/audio/injured.wav"));
+        addAudioByFilePath(Gray.AUDIO_INJURED, new File("assets/character/gray/audio/injured.wav"));
 
         addAudioByFilePath(Flying.AUDIO_FIREBALL_HIT, new File("assets/skill/fireball/audio/trigger.wav"));
         addAudioByFilePath(IceWallFlying.AUDIO_ICEWALL_HIT, new File("assets/skill/iceWall/audio/trigger.wav"));
