@@ -54,7 +54,6 @@ public class Emily extends Knight {
                 knightTransitionTable(fsm, idle, walking, attacking, jumping, crouch, casting, kicking);
 
                 return fsm;
-
         }
 
         @Override

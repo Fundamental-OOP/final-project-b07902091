@@ -72,4 +72,5 @@ public class Gray extends Knight {
         }
         world.addSprite(spell);
     }
+
 }
