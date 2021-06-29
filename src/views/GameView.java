@@ -145,7 +145,7 @@ public class GameView extends JFrame {
                         break;
                     case KeyEvent.VK_L:
                         L_last_pressed = LocalTime.now(ZoneId.of("Asia/Taipei")).toSecondOfDay();
-                        if (K_last_pressed - DOWN_last_pressed < 1 && DOWN_double_pressed) {
+                        if (L_last_pressed - DOWN_last_pressed < 1 && DOWN_double_pressed) {
                             System.out.println("second skill of P2");
                         } 
                         else if(L_last_pressed - LEFT_last_pressed < 1 && ulti_available_P2){
