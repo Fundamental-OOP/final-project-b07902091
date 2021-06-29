@@ -91,6 +91,28 @@ public class Game extends GameLoop {
 
     @Override
     protected World getWorld() {
+        if(world.dead1){
+            world.dead1 = false;
+            if(world.count_p1>0){
+                int anotherPlayer = (current1 + 1) % player1.size();
+                current1 = anotherPlayer;
+                world.addSprite(player1.get(anotherPlayer));
+            }
+            else{
+                System.out.println("Player  2 won!");
+            }
+        }
+        else if(world.dead2){
+            world.dead2 = false;
+            if(world.count_p2>0){
+                int anotherPlayer = (current2 + 1) % player2.size();
+                current2 = anotherPlayer;
+                world.addSprite(player2.get(anotherPlayer));
+            }
+            else{
+                System.out.println("Player  1 won!");
+            }
+        }
         return world;
     }
 

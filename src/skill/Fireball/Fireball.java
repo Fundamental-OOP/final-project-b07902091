@@ -27,7 +27,7 @@ public class Fireball extends HealthPointSprite {
     }
 
     public Fireball(Knight caster, int hp) {
-        super(hp);
+        super(hp,0);
         this.FIREBALL_HP = hp;
         this.caster = caster;
         face = this.direction = caster.getFace();

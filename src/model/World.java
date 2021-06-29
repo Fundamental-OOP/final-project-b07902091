@@ -22,6 +22,8 @@ public class World {
     private final CollisionHandler collisionHandler;
     public static int count_p1 = 2;
     public static int count_p2 = 2;
+    public static boolean dead1 = false;
+    public static boolean dead2 = false;
     //private final Sprite backup_P1;
     //private final Sprite backup_P2;
     public World(CollisionHandler collisionHandler, Sprite... sprites) {
@@ -36,10 +38,15 @@ public class World {
     }
 
     public void update() {
+        //int count = 0;
         for (Sprite sprite : sprites) {
             correctBoundary(sprite);
+            //count++;
             sprite.update();
         }
+        //if(count <2){
+        //    System.out.println("game end");
+        //}
     }
 
     public void addSprites(Sprite... sprites) {
@@ -57,8 +64,25 @@ public class World {
     //}
 
     public void removeSprite(Sprite sprite) {
+        //if(sprite==sprites.get(0)||sprite==sprites.get(2)){
+        //    System.out.println("player1 loses a hero");
+        //}
+        //System.out.println("Player1 "+this.count_p1+" Player2 "+this.count_p2);
         sprites.remove(sprite);
         sprite.setWorld(null);
+    }
+
+    public void removeSprite(Sprite sprite,int team){
+        if(team==1){
+            this.count_p1--;
+            removeSprite(sprite);
+            dead1 = true;
+        }
+        else if(team==2){
+            this.count_p2--;
+            removeSprite(sprite);
+            dead2 = true;
+        }
     }
 
     public void move(Sprite from, Dimension offset) {

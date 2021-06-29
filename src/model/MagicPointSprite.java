@@ -14,8 +14,8 @@ public abstract class MagicPointSprite extends HealthPointSprite {
 
     protected MagicPointBar mpBar;
 
-    public MagicPointSprite(int hp, int mp) {
-        super(hp);
+    public MagicPointSprite(int hp, int mp,int team) {
+        super(hp,team);
         this.mpBar = new MagicPointBar(mp);
         mpBar.setOwner(this);
     }

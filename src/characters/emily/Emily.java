@@ -20,8 +20,8 @@ public class Emily extends Knight {
 
     public static final String AUDIO_CAST = "emily-cast";
 
-    public Emily(int damage, Point location, Direction face) {
-        super(damage, location, face);
+    public Emily(int damage, Point location, Direction face,int team) {
+        super(damage, location, face,team);
         SpriteShape shape = new SpriteShape(new Dimension(146, 176), new Dimension(33, 38), new Dimension(66, 135));
         SpriteShape crouchShape = new SpriteShape(new Dimension(146, 176), new Dimension(33, 88),
                 new Dimension(66, 65));

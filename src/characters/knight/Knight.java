@@ -29,16 +29,18 @@ public class Knight extends MagicPointSprite {
     private final Set<Direction> directions = new CopyOnWriteArraySet<>();
     private final int damage;
     protected Fireball spell;
+   
 
     public enum Event {
         WALK, STOP, ATTACK, DAMAGED, CRUOCH, JUMP, STOP_CROUCH, SKILL, KICK
     }
 
-    public Knight(int damage, Point location, Direction face) {
-        super(KNIGHT_HP, KNIGHT_MP);
+    public Knight(int damage, Point location, Direction face,int team) {
+        super(KNIGHT_HP, KNIGHT_MP,team);
         this.face = face;
         this.damage = damage;
         this.location = location;
+        
     }
 
     protected void knightTransitionTable(FiniteStateMachine fsm, State idle, State walking, State attacking,

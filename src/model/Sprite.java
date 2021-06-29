@@ -16,7 +16,10 @@ public abstract class Sprite {
     public abstract void render(Graphics g);
 
     public abstract void onDamaged(Rectangle damageArea, int damage);
-
+    protected int team;
+    public Sprite(int team){
+        this.team = team;
+    }
     public World getWorld() {
         return world;
     }

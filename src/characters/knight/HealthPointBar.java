@@ -13,6 +13,7 @@ public class HealthPointBar extends Sprite {
     protected int hp;
 
     public HealthPointBar(int hp) {
+        super(0);
         this.maxHp = this.hp = hp;
     }
 
