@@ -6,6 +6,7 @@ import fsm.StateMachine;
 import media.AudioPlayer;
 import model.Sprite;
 import model.World;
+import skill.Fireball.Fireball;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -41,9 +42,9 @@ public class Attacking extends Sequence {
     @Override
     public void render(Graphics g) {
         super.render(g);
-         Rectangle damageArea = damageArea();
-         g.setColor(Color.BLUE);
-         g.drawRect(damageArea.x, damageArea.y, damageArea.width, damageArea.height);
+        Rectangle damageArea = damageArea();
+        g.setColor(Color.BLUE);
+        g.drawRect(damageArea.x, damageArea.y, damageArea.width, damageArea.height);
     }
 
     protected void effectDamage() {
@@ -52,7 +53,7 @@ public class Attacking extends Sequence {
         var sprites = world.getSprites(damageArea);
         boolean hasClash = false;
         for (Sprite sprite : sprites) {
-            if (knight != sprite) {
+            if (knight != sprite && (sprite instanceof Fireball && ((Fireball) sprite).getCaster() != knight)) {
                 sprite.onDamaged(damageArea, knight.getDamage());
                 hasClash = true;
             }
@@ -65,8 +66,8 @@ public class Attacking extends Sequence {
     }
 
     protected Rectangle damageArea() {
-        return knight.getArea(new Dimension(87, 70),//box offset x, y
-                new Dimension(55, 88));//box width, box height
+        return knight.getArea(new Dimension(87, 70), // box offset x, y
+                new Dimension(55, 88));// box width, box height
     }
 
     @Override

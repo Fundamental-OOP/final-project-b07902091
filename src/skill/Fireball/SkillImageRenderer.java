@@ -1,16 +1,19 @@
-package characters.knight;
+package skill.Fireball;
 
 import fsm.ImageRenderer;
 import fsm.ImageState;
 import model.Direction;
+import model.HealthPointSprite;
 
 import java.awt.*;
 import java.util.List;
 
-public class SkillImageRenderer implements ImageRenderer {
-    protected Knight knight;
+import characters.knight.Knight;
 
-    public SkillImageRenderer(Knight knight) {
+public class SkillImageRenderer implements ImageRenderer {
+    protected HealthPointSprite knight;
+
+    public SkillImageRenderer(HealthPointSprite knight) {
         this.knight = knight;
     }
 

@@ -22,14 +22,15 @@ public class Game extends GameLoop {
         getPlayer(playerNumber).move(direction);
     }
 
-    public void jumpKnight(int playerNumber){
+    public void jumpKnight(int playerNumber) {
         getPlayer(playerNumber).jump();
     }
 
-    public void crouchKnight(int playerNumber){
+    public void crouchKnight(int playerNumber) {
         getPlayer(playerNumber).crouch();
     }
-    public void stopCrouchKnight(int playerNumber){
+
+    public void stopCrouchKnight(int playerNumber) {
         getPlayer(playerNumber).stopCrouch();
     }
 
@@ -45,8 +46,8 @@ public class Game extends GameLoop {
         getPlayer(playerNumber).kick();
     }
 
-    public void skill_1(int playerNumber) {
-        getPlayer(playerNumber).skill_1();
+    public void skill(int playerNumber, int skill_id) {
+        getPlayer(playerNumber).skill(skill_id);
     }
 
     public Knight getPlayer(int playerNumber) {

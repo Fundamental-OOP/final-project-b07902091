@@ -4,6 +4,9 @@ import fsm.FiniteStateMachine;
 import model.Direction;
 import model.MagicPointSprite;
 import model.SpriteShape;
+import skill.FireRing.FireRing;
+import skill.Fireball.Fireball;
+import skill.Lightningball.Lightningball;
 
 import java.awt.*;
 import java.util.Set;
@@ -21,12 +24,13 @@ public class Knight extends MagicPointSprite {
 
     private SpriteShape shape;
     private SpriteShape crouchShape;
-    private FiniteStateMachine fsm;
+    protected FiniteStateMachine fsm;
     private final Set<Direction> directions = new CopyOnWriteArraySet<>();
     private final int damage;
+    protected Fireball spell;
 
     public enum Event {
-        WALK, STOP, ATTACK, DAMAGED, CRUOCH, JUMP, STOP_CROUCH, SKILL_1, KICK
+        WALK, STOP, ATTACK, DAMAGED, CRUOCH, JUMP, STOP_CROUCH, SKILL_1, SKILL_2, SKILL_3, KICK
     }
 
     public Knight(int damage, Point location) {
@@ -89,9 +93,33 @@ public class Knight extends MagicPointSprite {
         }
     }
 
-    public void skill_1() {
-        fsm.trigger(SKILL_1);
+    public void skill(int id) {
+        if (id == 1) {
+            fsm.trigger(SKILL_1);
+            if (fsm.currentState().toString().equals("Skill")) {
+                spell = new Fireball(this, 1);
+                world.addSprite(spell);
+            }
+        } else if (id == 2) {
+            fsm.trigger(SKILL_2);
+            if (fsm.currentState().toString().equals("Skill")) {
+                spell = new Lightningball(this, 1);
+                world.addSprite(spell);
+            }
+        } else if (id == 3) {
+            fsm.trigger(SKILL_3);
+            if (fsm.currentState().toString().equals("Skill")) {
+                spell = new FireRing(this, 1);
+                world.addSprite(spell);
+            }
+        }
+
     }
+
+    public void triggerSpell() {
+        spell.done();
+    }
+
     public void update() {
         fsm.update();
     }
@@ -134,6 +162,5 @@ public class Knight extends MagicPointSprite {
         else
             return crouchShape.bodySize;
     }
-
 
 }
