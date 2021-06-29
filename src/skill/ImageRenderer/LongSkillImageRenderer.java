@@ -1,4 +1,4 @@
-package skill.Lightning;
+package skill.ImageRenderer;
 
 import fsm.ImageRenderer;
 import fsm.ImageState;

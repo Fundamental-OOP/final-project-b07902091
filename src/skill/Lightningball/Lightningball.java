@@ -12,8 +12,8 @@ import model.SpriteShape;
 import skill.Fireball.Casting;
 import skill.Fireball.Fireball;
 import skill.Fireball.Flying;
-import skill.Fireball.SkillImageRenderer;
 import skill.Fireball.Triggered;
+import skill.ImageRenderer.SkillImageRenderer;
 
 import static fsm.FiniteStateMachine.Transition.from;
 import static skill.Fireball.Fireball.Event.*;

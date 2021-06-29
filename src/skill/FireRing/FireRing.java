@@ -6,7 +6,6 @@ import skill.Fireball.Fireball;
 import characters.knight.Knight;
 import skill.Lightning.Lightning;
 import skill.Lightning.LightningFlying;
-import skill.Lightning.LongSkillImageRenderer;
 
 import java.awt.*;
 import characters.knight.Knight;
@@ -19,8 +18,10 @@ import model.SpriteShape;
 import skill.Fireball.Casting;
 import skill.Fireball.Fireball;
 import skill.Fireball.Flying;
-import skill.Fireball.SkillImageRenderer;
 import skill.Fireball.Triggered;
+import skill.ImageRenderer.FullScreenImageRenderer;
+import skill.ImageRenderer.LongSkillImageRenderer;
+import skill.ImageRenderer.SkillImageRenderer;
 
 import static fsm.FiniteStateMachine.Transition.from;
 import static skill.Fireball.Fireball.Event.*;

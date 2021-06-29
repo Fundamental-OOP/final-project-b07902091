@@ -7,11 +7,11 @@ import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 
-public class Skill extends Sequence {
+public class Cast extends Sequence {
     private final Knight knight;
     private final StateMachine stateMachine;
 
-    public Skill(Knight knight, StateMachine stateMachine, List<? extends State> states) {
+    public Cast(Knight knight, StateMachine stateMachine, List<? extends State> states) {
         super(states);
         this.knight = knight;
         this.stateMachine = stateMachine;

@@ -109,9 +109,6 @@ public class GameView extends JFrame {
                             game.kick(P1);
                         }
                         break;
-                    case KeyEvent.VK_R:
-                        game.skill(P1, 3);
-                        break;
                     // kick for P1
                     // case KeyEvent.VK_E:
                     // game.change_hero(P1);

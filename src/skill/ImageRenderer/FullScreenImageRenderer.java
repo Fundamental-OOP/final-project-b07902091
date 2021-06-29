@@ -1,4 +1,4 @@
-package skill.Fireball;
+package skill.ImageRenderer;
 
 import fsm.ImageRenderer;
 import fsm.ImageState;
@@ -10,10 +10,10 @@ import java.util.List;
 
 import characters.knight.Knight;
 
-public class SkillImageRenderer implements ImageRenderer {
+public class FullScreenImageRenderer implements ImageRenderer {
     protected HealthPointSprite knight;
 
-    public SkillImageRenderer(HealthPointSprite knight) {
+    public FullScreenImageRenderer(HealthPointSprite knight) {
         this.knight = knight;
     }
 
@@ -22,11 +22,9 @@ public class SkillImageRenderer implements ImageRenderer {
         Direction face = knight.getFace();
         Rectangle range = knight.getRange();
         Rectangle body = knight.getBody();
-        if (face == Direction.LEFT) {
-            g.drawImage(image, range.x + range.width, range.y, -range.width, range.height, null);
-        } else {
-            g.drawImage(image, range.x, range.y, range.width, range.height, null);
-        }
+        g.drawImage(image, (int) (range.x - range.width * 7/2), (int) (range.y+body.getHeight()), range.width * 8,
+                range.height, null);
+
         g.setColor(Color.RED);
         g.drawRect(body.x, body.y, body.width, body.height);
     }
