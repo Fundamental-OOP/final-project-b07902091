@@ -7,7 +7,7 @@ import model.MagicPointSprite;
 import model.SpriteShape;
 import skill.FireRing.FireRing;
 import skill.Fireball.Fireball;
-import skill.Lightningball.Lightningball;
+import skill.LightningBall.LightningBall;
 
 import java.awt.*;
 import java.util.Set;
@@ -26,7 +26,7 @@ import static characters.knight.Knight.Event.*;
 public class Knight extends MagicPointSprite {
     public static final int KNIGHT_HP = 500;
     public static final int KNIGHT_MP = 200;
-
+    protected String AUDIO_CAST;
     protected SpriteShape shape;
     protected SpriteShape crouchShape;
     protected FiniteStateMachine fsm;

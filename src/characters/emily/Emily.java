@@ -11,12 +11,14 @@ import model.Direction;
 import model.SpriteShape;
 import skill.IceWall.IceWall;
 import skill.Lightning.Lightning;
-import skill.Lightningball.Lightningball;
+import skill.LightningBall.LightningBall;
 
 import static utils.ImageStateUtils.imageStatesFromFolder;
 import static characters.knight.Knight.Event.*;
 
 public class Emily extends Knight {
+
+    public static final String AUDIO_CAST = "emily-cast";
 
         public Emily(int damage, Point location, Direction face) {
                 super(damage, location, face);
@@ -28,6 +30,8 @@ public class Emily extends Knight {
                 this.shape = shape;
                 this.fsm = createTransitionTable();
                 this.crouchShape = crouchShape;
+
+                super.AUDIO_CAST = AUDIO_CAST;
         }
 
         private FiniteStateMachine createTransitionTable() {
@@ -48,7 +52,7 @@ public class Emily extends Knight {
                                 new Crouch(this, imageStatesFromFolder(filepath.concat("crouch"), imageRenderer)));
                 State casting = new WaitingPerFrame(7,
                                 new Cast(this, fsm, imageStatesFromFolder(filepath.concat("cast"), imageRenderer)));
-                State kicking = new WaitingPerFrame(5, new EmilyKicking(this, fsm,
+                State kicking = new WaitingPerFrame(10, new EmilyKicking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("kick"), imageRenderer)));
 
                 knightTransitionTable(fsm, idle, walking, attacking, jumping, crouch, casting, kicking);
@@ -61,7 +65,7 @@ public class Emily extends Knight {
                 super.skill(id);
                 switch (id) {
                         case 1:
-                                spell = new Lightningball(this, 1);
+                                spell = new LightningBall(this, 1);
                                 break;
                         case 2:
                                 spell = new Lightning(this, 100);
