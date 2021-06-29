@@ -46,20 +46,25 @@ public class GameView extends JFrame {
     private static boolean DOWN_plus_LR = false;
     private static boolean ulti_available_P2 = false;
 
-    private final Canvas canvas = new Canvas();
-    private final Game game;
+    private Canvas canvas;
+    private Game game;
 
-    public GameView(Game game) throws HeadlessException {
-        this.game = game;
-        game.setView(canvas);
+    public GameView() throws HeadlessException {
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        // setContentPane(canvas);
+        setSize(WIDTH, HEIGHT);
+        // setContentPane(canvas);
+        setVisible(true);
     }
 
-    public void launch() {
+    public void launchGame(Game game, JPanel cards) {
+        this.game = game;
+        this.canvas = canvas;
+        
+
         // GUI Stuff
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setContentPane(canvas);
-        setSize(WIDTH, HEIGHT);
-        setContentPane(canvas);
+        ((CardLayout) cards.getLayout()).show(cards, "Card with GamePlay panel");
+        // setContentPane(canvas);
         setVisible(true);
 
         // Keyboard listener

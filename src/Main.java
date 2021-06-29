@@ -1,4 +1,5 @@
 import controller.Game;
+import media.AudioPlayer;
 import model.Direction;
 import model.HealthPointSprite;
 import model.World;
@@ -6,6 +7,7 @@ import skill.Fireball.Flying;
 import skill.IceWall.IceWallFlying;
 import skill.Lightning.LightningFlying;
 import views.GameView;
+import java.awt.event.*;
 
 import java.awt.*;
 import java.io.File;
@@ -22,6 +24,9 @@ import characters.knight.KnightCollisionHandler;
 import characters.knight.Walking;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import views.GameView.Canvas;
 import static media.AudioPlayer.addAudioByFilePath;
 
 /**
@@ -31,23 +36,79 @@ import static media.AudioPlayer.addAudioByFilePath;
  * @author - johnny850807@gmail.com (Waterball)
  */
 public class Main {
+    JPanel cards;
+    final static String INTRO_PANEL = "Card with Intro panel";
+    final static String MENU_PANEL = "Card with Character Selection panel";
+    final static String GAME_PANEL = "Card with GamePlay panel";
+
     public static void main(String[] args) {
         addAudio();
+        Thread musicThread = AudioPlayer.playLoopMusic("assets/music/background.wav");
+        GameView view = new GameView(); // view
 
-        startIntro();
+        // TODO Intro Panel
+        JPanel card1 = new JPanel();
+        card1.setSize(GameView.WIDTH, GameView.HEIGHT);
+        card1.setBackground(Color.white);
 
-        List<Knight> team1 = new ArrayList<>();
-        List<Knight> team2 = new ArrayList<>();
+        // TODO Knight Selection Panel
+        JPanel card2 = new JPanel();
+        card2.setSize(GameView.WIDTH, GameView.HEIGHT);
+        card2.setBackground(Color.blue);
 
-        startMenu(team1, team2);
+        // No TODO
+        Canvas canvas = new Canvas();
 
-        startGame(team1, team2, 0);
+        // Main Card Layout
+        JPanel cards = new JPanel(new CardLayout());
+        cards.add(card1, INTRO_PANEL);
+        cards.add(card2, MENU_PANEL);
+        cards.add(canvas, GAME_PANEL);
+
+        view.add(cards, BorderLayout.CENTER);
+        view.setVisible(true);
+
+        // noodle code just for change panel start ===========================
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String buttonName = e.getActionCommand();
+                if (buttonName.equals("start"))
+                    ((CardLayout) cards.getLayout()).next(cards);
+                if (buttonName.equals("start2")) {
+                    List<Knight> team1 = new ArrayList<>();
+                    List<Knight> team2 = new ArrayList<>();
+
+                    startMenu(team1, team2);
+
+                    startGame(view, team1, team2, 0, cards, canvas);
+                }
+
+            }
+        };
+
+        JButton start = new JButton("start");
+        JButton start2 = new JButton("start2");
+        start.addActionListener(actionListener);
+        start2.addActionListener(actionListener);
+        card1.add(start);
+        card2.add(start2);
+        // end============================================================
+
+        // List<Knight> team1 = new ArrayList<>();
+        // List<Knight> team2 = new ArrayList<>();
+
+        // startMenu(team1, team2);
+
+        // startGame(view, team1, team2, 0, cards, canvas);
     }
+
     // Start Introduction Page
     private static void startIntro() {
+        // MainMenu menu = new MainMenu();
     }
 
-    //Start Knights Selection Page
+    // Start Knights Selection Page
     private static void startMenu(List<Knight> team1, List<Knight> team2) {
         // initialization procedure
         Knight p1 = new Gray(100, new Point(300, 300), Direction.RIGHT);
@@ -66,12 +127,14 @@ public class Main {
     }
 
     // Start Game
-    private static void startGame(List<Knight> team1, List<Knight> team2, int first_rival_id) {
+    private static void startGame(GameView view, List<Knight> team1, List<Knight> team2, int first_rival_id,
+            JPanel cards, Canvas canvas) {
         World world = new World(new KnightCollisionHandler(), team1.get(first_rival_id), team2.get(first_rival_id)); // model
         Game game = new Game(world, team1, team2, first_rival_id); // controller
-        GameView view = new GameView(game); // view
+        game.setView(canvas);
         game.start(); // run the game and the game loop
-        view.launch(); // launch the GUI
+        view.launchGame(game, cards); // launch the GUI
+
     }
 
     private static void addAudio() {
