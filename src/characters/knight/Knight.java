@@ -135,5 +135,9 @@ public class Knight extends MagicPointSprite {
             return crouchShape.bodySize;
     }
 
+    public boolean isDead(){
+        return this.hpBar.isDead();
+    }
+
 
 }

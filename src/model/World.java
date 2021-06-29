@@ -15,10 +15,19 @@ import static java.util.stream.Collectors.toSet;
 public class World {
     private final List<Sprite> sprites = new CopyOnWriteArrayList<>();
     private final CollisionHandler collisionHandler;
-
+    public static int count_p1 = 2;
+    public static int count_p2 = 2;
+    //private final Sprite backup_P1;
+    //private final Sprite backup_P2;
     public World(CollisionHandler collisionHandler, Sprite... sprites) {
         this.collisionHandler = collisionHandler;
-        addSprites(sprites);
+        //addSprites(sprites);
+        addSprites(sprites[0]);
+        addSprites(sprites[1]);
+        //backup_P1 = sprites[2];
+        //backup_P2 = sprites[3];
+        //addSprite(backup_P1);
+        //addSprites(sprites[2]);
     }
 
     public void update() {
@@ -36,6 +45,11 @@ public class World {
         sprites.add(sprite);
         sprite.setWorld(this);
     }
+    //public void changeSprite(Sprite sprite) {
+    //    //sprites.remove(sprite);
+    //    sprite.setWorld(null);
+    //    //sprites[2].setWorld(this);
+    //}
 
     public void removeSprite(Sprite sprite) {
         sprites.remove(sprite);

@@ -8,18 +8,51 @@ import model.World;
  * @author - johnny850807@gmail.com (Waterball)
  */
 public class Game extends GameLoop {
-    private final Knight p1;
-    private final Knight p2;
-    private final World world;
+    private static Knight p1;
+    private static Knight p2;
+    private static Knight p3;
+    private static Knight p4;
+    private static Knight temp;
+    private static World world;
 
-    public Game(World world, Knight p1, Knight p2) {
+    public Game(World world, Knight p1, Knight p2, Knight p3, Knight p4) {
         this.p1 = p1;
         this.p2 = p2;
+        this.p3 = p3;
+        this.p4 = p4;
+        this.temp = p1;
         this.world = world;
     }
 
     public void moveKnight(int playerNumber, Direction direction) {
         getPlayer(playerNumber).move(direction);
+    }
+
+    public void changeKnight(int playerNumber){
+        if(playerNumber == 1){
+            if(!this.p3.isDead()){
+                this.p1.stop(Direction.LEFT);
+                this.p1.stop(Direction.RIGHT);
+                this.p1.stopCrouch();
+                this.temp = this.p1;
+                this.p1 = this.p3;
+                this.p3 = this.temp;
+                this.world.removeSprite(this.p3); 
+                this.world.addSprite(this.p1); 
+            }
+        }
+        else if(playerNumber == 2){
+            if(!this.p4.isDead()){
+                this.p2.stop(Direction.LEFT);
+                this.p2.stop(Direction.RIGHT);
+                this.p2.stopCrouch();
+                this.temp = this.p2;
+                this.p2 = this.p4;
+                this.p4 = this.temp;
+                this.world.removeSprite(this.p4); 
+                this.world.addSprite(this.p2); 
+            }
+        }
     }
 
     public void jumpKnight(int playerNumber){

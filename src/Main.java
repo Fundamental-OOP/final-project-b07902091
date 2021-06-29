@@ -31,9 +31,11 @@ public class Main {
         // initialization procedure
         Knight p1 = new Gray(100, new Point(0, 150), Direction.RIGHT);
         Knight p2 = new Emily(150, new Point(300, 150), Direction.LEFT);
+        Knight p3 = new Gray(100, new Point(0, 150), Direction.RIGHT);
+        Knight p4 = new Emily(150, new Point(300, 150), Direction.LEFT);
 
-        World world = new World(new KnightCollisionHandler(), p1, p2);  // model
-        Game game = new Game(world, p1, p2);  // controller
+        World world = new World(new KnightCollisionHandler(), p1, p2,p3,p4);  // model
+        Game game = new Game(world, p1, p2,p3,p4);  // controller
         GameView view = new GameView(game);  // view
         game.start();  // run the game and the game loop
         view.launch(); // launch the GUI

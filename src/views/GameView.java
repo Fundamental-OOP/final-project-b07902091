@@ -111,9 +111,9 @@ public class GameView extends JFrame {
                         }
                         break;
                     // kick for P1
-                    // case KeyEvent.VK_E:
-                    // game.change_hero(P1);
-                    // break;
+                    case KeyEvent.VK_E:
+                        game.changeKnight(P1);
+                        break;
                     case KeyEvent.VK_UP:
                         game.jumpKnight(P2);
                         break;
@@ -159,9 +159,9 @@ public class GameView extends JFrame {
                         
                         break;
                     // kick for P2
-                    // case KeyEvent.VK_P:
-                    // game.change_hero(P2);
-                    // break;
+                    case KeyEvent.VK_P:
+                        game.changeKnight(P2);
+                        break;
                 }
             }
 
