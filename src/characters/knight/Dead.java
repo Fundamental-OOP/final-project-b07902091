@@ -20,6 +20,13 @@ public class Dead extends Sequence {
 
     @Override
     protected void onSequenceEnd() {
-        knight.getWorld().removeSprite(knight);
+        if(knight.getWorld().getGame().checkGameOver()){
+            // Do GAMEOVER
+            knight.getWorld().removeSprite(knight);
+        }
+        else {
+            knight.getWorld().getGame().changeKnight(knight.getTeam());
+        }
+        
     }
 }

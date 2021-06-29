@@ -56,9 +56,9 @@ public class Emily extends Knight {
                 new Cast(this, fsm, imageStatesFromFolder(filepath.concat("cast"), imageRenderer)));
         State kicking = new WaitingPerFrame(10,
                 new EmilyKicking(this, fsm, imageStatesFromFolder(filepath.concat("kick"), imageRenderer)));
-        State injured = new WaitingPerFrame(10,
+        State injured = new WaitingPerFrame(20,
                 new Injured(this, fsm, imageStatesFromFolder(filepath.concat("injured"), imageRenderer)));
-        State dead = new WaitingPerFrame(10,
+        State dead = new WaitingPerFrame(40,
                 new Dead(this, imageStatesFromFolder(filepath.concat("dead"), imageRenderer)));
 
         knightTransitionTable(fsm, idle, walking, attacking, jumping, crouch, casting, kicking, injured, dead);
@@ -80,6 +80,7 @@ public class Emily extends Knight {
                 spell = new IceWall(this, 1);
                 break;
         }
+        spell.setTeam(getTeam());
         world.addSprite(spell);
     }
 }

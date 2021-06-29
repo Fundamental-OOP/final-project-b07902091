@@ -165,8 +165,6 @@ public class Knight extends MagicPointSprite {
     public void onDamaged(Rectangle damageArea, int damage) {
         hpBar.onDamaged(damageArea, damage);
         if (hpBar.isDead()) {
-            //this.KNIGHT_HP = 0; // 
-            // world.removeSprite(this);
             fsm.trigger(DEAD);
             AudioPlayer.playSounds(AUDIO_DEAD);
         }
