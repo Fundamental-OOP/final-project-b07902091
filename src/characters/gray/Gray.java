@@ -12,7 +12,6 @@ import model.SpriteShape;
 import skill.FireRing.FireRing;
 import skill.Fire.Fire;
 import skill.Fireball.Fireball;
-import skill.Lightningball.LightningBall;
 
 import static utils.ImageStateUtils.imageStatesFromFolder;
 import static characters.knight.Knight.Event.*;

@@ -7,7 +7,6 @@ import model.MagicPointSprite;
 import model.SpriteShape;
 import skill.FireRing.FireRing;
 import skill.Fireball.Fireball;
-import skill.Lightningball.LightningBall;
 
 import java.awt.*;
 import java.util.Set;

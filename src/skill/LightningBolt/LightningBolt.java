@@ -1,4 +1,4 @@
-package skill.Lightningball;
+package skill.LightningBolt;
 
 
 import java.awt.*;
@@ -19,9 +19,9 @@ import static fsm.FiniteStateMachine.Transition.from;
 import static skill.Fireball.Fireball.Event.*;
 import static utils.ImageStateUtils.imageStatesFromFolder;
 
-public class LightningBall extends Fireball {
+public class LightningBolt extends Fireball {
 
-    public LightningBall(Knight caster, int hp) {
+    public LightningBolt(Knight caster, int hp) {
         super(caster, hp);// default 1
         // TODO Auto-generated constructor stub
     }
@@ -38,7 +38,7 @@ public class LightningBall extends Fireball {
         State casting = new WaitingPerFrame(3,
                 new Casting(this, imageStatesFromFolder(filepath.concat("casting"), imageRenderer)));
         State flying = new WaitingPerFrame(4,
-                new LightningBallFlying(this, imageStatesFromFolder(filepath.concat("flying"), imageRenderer)));
+                new LightningBoltFlying(this, imageStatesFromFolder(filepath.concat("flying"), imageRenderer)));
         State triggered = new WaitingPerFrame(4,
                 new Triggered(this, imageStatesFromFolder(filepath.concat("trigger"), imageRenderer)));
 

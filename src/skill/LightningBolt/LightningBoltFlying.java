@@ -1,4 +1,4 @@
-package skill.Lightningball;
+package skill.LightningBolt;
 
 import java.awt.Rectangle;
 import java.util.List;
@@ -11,9 +11,9 @@ import skill.Fireball.Fireball;
 import skill.Fireball.Flying;
 import skill.Lightning.LightningFlying;
 
-public class LightningBallFlying extends Flying {
+public class LightningBoltFlying extends Flying {
 
-    public LightningBallFlying(Fireball fireball, List<? extends State> states) {
+    public LightningBoltFlying(Fireball fireball, List<? extends State> states) {
         super(fireball, states);
     }
 

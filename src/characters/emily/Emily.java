@@ -11,7 +11,7 @@ import model.Direction;
 import model.SpriteShape;
 import skill.IceWall.IceWall;
 import skill.Lightning.Lightning;
-import skill.Lightningball.LightningBall;
+import skill.LightningBolt.LightningBolt;
 
 import static utils.ImageStateUtils.imageStatesFromFolder;
 import static characters.knight.Knight.Event.*;
@@ -65,7 +65,7 @@ public class Emily extends Knight {
                 super.skill(id);
                 switch (id) {
                         case 1:
-                                spell = new LightningBall(this, 1);
+                                spell = new LightningBolt(this, 1);
                                 break;
                         case 2:
                                 spell = new Lightning(this, 100);
