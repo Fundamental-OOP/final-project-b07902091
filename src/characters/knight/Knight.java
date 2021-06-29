@@ -30,7 +30,7 @@ public class Knight extends MagicPointSprite {
     protected Fireball spell;
 
     public enum Event {
-        WALK, STOP, ATTACK, DAMAGED, CRUOCH, JUMP, STOP_CROUCH, SKILL_1, SKILL_2, SKILL_3, KICK
+        WALK, STOP, ATTACK, DAMAGED, CRUOCH, JUMP, STOP_CROUCH, SKILL, KICK
     }
 
     public Knight(int damage, Point location) {
@@ -95,19 +95,19 @@ public class Knight extends MagicPointSprite {
 
     public void skill(int id) {
         if (id == 1) {
-            fsm.trigger(SKILL_1);
+            fsm.trigger(SKILL);
             if (fsm.currentState().toString().equals("Skill")) {
                 spell = new Fireball(this, 1);
                 world.addSprite(spell);
             }
         } else if (id == 2) {
-            fsm.trigger(SKILL_2);
+            fsm.trigger(SKILL);
             if (fsm.currentState().toString().equals("Skill")) {
                 spell = new Lightningball(this, 1);
                 world.addSprite(spell);
             }
         } else if (id == 3) {
-            fsm.trigger(SKILL_3);
+            fsm.trigger(SKILL);
             if (fsm.currentState().toString().equals("Skill")) {
                 spell = new FireRing(this, 1);
                 world.addSprite(spell);

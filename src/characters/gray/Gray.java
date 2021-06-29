@@ -48,15 +48,15 @@ public class Gray extends Knight {
                                 new Idle(imageStatesFromFolder(filepath.concat("idle"), imageRenderer)));
                 State walking = new WaitingPerFrame(2,
                                 new Walking(this, imageStatesFromFolder(filepath.concat("walking"), imageRenderer)));
-                State attacking = new WaitingPerFrame(10, new GrayAttacking(this, fsm,
+                State attacking = new WaitingPerFrame(5, new GrayAttacking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("attack"), imageRenderer)));
                 State jumping = new WaitingPerFrame(4, new Jumping(this, fsm,
                                 imageStatesFromFolder(filepath.concat("jumping"), imageRenderer)));
                 State crouch = new WaitingPerFrame(4,
                                 new Crouch(this, imageStatesFromFolder(filepath.concat("crouch"), imageRenderer)));
-                State skill_1 = new WaitingPerFrame(7,
+                State skill = new WaitingPerFrame(7,
                                 new Skill(this, fsm, imageStatesFromFolder(filepath.concat("cast"), imageRenderer)));
-                State kicking = new WaitingPerFrame(3, new GrayKicking(this, fsm,
+                State kicking = new WaitingPerFrame(2, new GrayKicking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("kick"), imageRenderer)));
 
                 fsm.setInitialState(idle);
@@ -72,9 +72,12 @@ public class Gray extends Knight {
                 fsm.addTransition(from(walking).when(Event.CRUOCH).to(crouch));
                 fsm.addTransition(from(crouch).when(Event.STOP_CROUCH).to(idle));
 
-                fsm.addTransition(from(idle).when(Event.SKILL_1).to(skill_1));
-                fsm.addTransition(from(walking).when(Event.SKILL_1).to(skill_1));
-                fsm.addTransition(from(crouch).when(Event.SKILL_1).to(skill_1));
+                fsm.addTransition(from(idle).when(Event.SKILL).to(skill));
+                fsm.addTransition(from(walking).when(Event.SKILL).to(skill));
+                fsm.addTransition(from(crouch).when(Event.SKILL).to(skill));
+                fsm.addTransition(from(attacking).when(Event.SKILL).to(skill));
+                fsm.addTransition(from(kicking).when(Event.SKILL).to(skill));
+
 
                 fsm.addTransition(from(idle).when(Event.KICK).to(kicking));
                 fsm.addTransition(from(walking).when(Event.KICK).to(kicking));
@@ -87,19 +90,19 @@ public class Gray extends Knight {
         @Override
         public void skill(int id) {
                 if (id == 1) {
-                        fsm.trigger(SKILL_1);
+                        fsm.trigger(SKILL);
                         if (fsm.currentState().toString().equals("Skill")) {
                                 spell = new Fire(this, 1000);
                                 world.addSprite(spell);
                         }
                 } else if (id == 2) {
-                        fsm.trigger(SKILL_2);
+                        fsm.trigger(SKILL);
                         if (fsm.currentState().toString().equals("Skill")) {
                                 spell = new Lightning(this, 1000);
                                 world.addSprite(spell);
                         }
                 } else if (id == 3) {
-                        fsm.trigger(SKILL_3);
+                        fsm.trigger(SKILL);
                         if (fsm.currentState().toString().equals("Skill")) {
                                 spell = new IceWall(this, 1000);
                                 world.addSprite(spell);
