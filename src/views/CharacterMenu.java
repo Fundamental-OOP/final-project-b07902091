@@ -18,13 +18,9 @@ import characters.alita.Alita;
 import characters.emily.Emily;
 import characters.gray.Gray;
 import characters.knight.Knight;
+import characters.nazi.Nazi;
 import model.Direction;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.Composite;
-import java.io.File;
-import java.io.IOException;
 
 import java.awt.event.*;
 
@@ -33,6 +29,7 @@ public class CharacterMenu extends JPanel {
     private List<Knight> team1;
     private List<Knight> team2;
     private JButton next;
+
     public CharacterMenu(JPanel cards, List<Knight> team1, List<Knight> team2) {
         this.parent = cards;
         this.team1 = team1;
@@ -49,12 +46,11 @@ public class CharacterMenu extends JPanel {
 
         setSize(GameView.WIDTH, GameView.HEIGHT);
         setBackground(Color.blue);
-        
+
         JLabel title = new JLabel("SELECT PLAY"); // title
         title.setForeground(Color.black);
         title.setFont(new Font("Times New Roman", Font.BOLD, 52));
-       
-        
+
         add(title, c);
         c.gridx = 0;
         c.gridy = 2;
@@ -63,11 +59,10 @@ public class CharacterMenu extends JPanel {
         c.weightx = 0;
         c.weighty = 1;
         c.fill = GridBagConstraints.NONE;
-        
+
         JButton emily1 = getKnightIcon("alita", team1, 1);
         add(emily1, c);
-        
-        
+
         c.gridx = 1;
         c.gridy = 2;
         c.gridwidth = 1;
@@ -88,7 +83,6 @@ public class CharacterMenu extends JPanel {
         JButton emily2 = getKnightIcon("emily", team2, 2);
         add(emily2, c);
 
-        
         c.gridx = 4;
         c.gridy = 2;
         c.gridwidth = 1;
@@ -96,7 +90,7 @@ public class CharacterMenu extends JPanel {
         c.weightx = 0;
         c.weighty = 1;
         c.fill = GridBagConstraints.NONE;
-        JButton gray2 = getKnightIcon("gray", team2, 2);
+        JButton gray2 = getKnightIcon("nazi", team2, 2);
         add(gray2, c);
 
         addComponentListener(new ComponentAdapter() {
@@ -133,7 +127,7 @@ public class CharacterMenu extends JPanel {
             }
         });
         next.setEnabled(false);
-        next.setBounds(60,400,70,40);
+        next.setBounds(60, 400, 70, 40);
         add(next, c);
 
     }
@@ -175,7 +169,9 @@ public class CharacterMenu extends JPanel {
             else if (filepath.equals("gray"))
                 knight = new Gray(knightLocation, direction);
             else if (filepath.equals("alita"))
-                    knight = new Alita(knightLocation, direction);
+                knight = new Alita(knightLocation, direction);
+            else if (filepath.equals("nazi"))
+                knight = new Nazi(knightLocation, direction);
             else {
                 component.setEnabled(false);
                 return;
@@ -215,23 +211,23 @@ public class CharacterMenu extends JPanel {
         g.setFont(new Font("Verdana", Font.BOLD + Font.ITALIC, 35));
         g.setColor(Color.black);
         if (team1.size() > 0) {
-            g.drawString(team1.get(0).toString(), 120, 130);
             g.drawImage(getProfileImage(team1.get(0).toString().toLowerCase()), 30, 100, 300, 400, this);
+            g.drawString(team1.get(0).toString(), 120, 130);
         }
 
         if (team1.size() > 1) {
-            g.drawString(team1.get(1).toString(), 320, 330);
             g.drawImage(getProfileImage(team1.get(1).toString().toLowerCase()), 230, 300, 300, 400, this);
+            g.drawString(team1.get(1).toString(), 320, 330);
         }
 
         if (team2.size() > 0) {
-            g.drawString(team2.get(0).toString(), 1070, 130);
             g.drawImage(getProfileImage(team2.get(0).toString().toLowerCase()), 1280, 100, -300, 400, this);
+            g.drawString(team2.get(0).toString(), 1070, 130);
         }
 
         if (team2.size() > 1) {
-            g.drawString(team2.get(1).toString(), 870, 330);
             g.drawImage(getProfileImage(team2.get(1).toString().toLowerCase()), 1080, 300, -300, 400, this);
+            g.drawString(team2.get(1).toString(), 870, 330);
         }
 
     }

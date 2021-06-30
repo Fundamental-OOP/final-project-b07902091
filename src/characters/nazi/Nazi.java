@@ -1,4 +1,4 @@
-package characters.alita;
+package characters.nazi;
 
 import java.awt.*;
 
@@ -19,13 +19,13 @@ import skill.LightningBolt.LightningBolt;
 import static utils.ImageStateUtils.imageStatesFromFolder;
 import static characters.knight.Knight.Event.*;
 
-public class Alita extends Knight {
-        public static final int DAMAGE = 60;
+public class Nazi extends Knight {
+        public static final int DAMAGE = 90;
         public static final String AUDIO_CAST = "emily-cast";
         public static final String AUDIO_INJURED = "emily-injured";
         public static final String AUDIO_DEAD = "emily-dead";
 
-        public Alita(Point location, Direction face) {
+        public Nazi(Point location, Direction face) {
                 super(DAMAGE, location, face);
                 SpriteShape shape = new SpriteShape(new Dimension(World.MULTIPLY * 146, World.MULTIPLY * 176),
                                 new Dimension(World.MULTIPLY * 33, World.MULTIPLY * 38),
@@ -44,16 +44,16 @@ public class Alita extends Knight {
         }
 
         private FiniteStateMachine createTransitionTable() {
-                String filepath = "assets/character/alita/";
+                String filepath = "assets/character/nazi/";
                 FiniteStateMachine fsm = new FiniteStateMachine();
 
                 ImageRenderer imageRenderer = new KnightImageRenderer(this);
 
                 State idle = new WaitingPerFrame(4,
                                 new Idle(imageStatesFromFolder(filepath.concat("idle"), imageRenderer)));
-                State walking = new WaitingPerFrame(2,
+                State walking = new WaitingPerFrame(3,
                                 new Walking(this, imageStatesFromFolder(filepath.concat("walking"), imageRenderer)));
-                State attacking = new WaitingPerFrame(8, new AlitaAttacking(this, fsm,
+                State attacking = new WaitingPerFrame(8, new NaziAttacking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("attack"), imageRenderer)));
                 State jumping = new WaitingPerFrame(4, new Jumping(this, fsm,
                                 imageStatesFromFolder(filepath.concat("jumping"), imageRenderer)));
@@ -61,7 +61,7 @@ public class Alita extends Knight {
                                 new Crouch(this, imageStatesFromFolder(filepath.concat("crouch"), imageRenderer)));
                 State casting = new WaitingPerFrame(12,
                                 new Cast(this, fsm, imageStatesFromFolder(filepath.concat("cast"), imageRenderer)));
-                State kicking = new WaitingPerFrame(10, new AlitaKicking(this, fsm,
+                State kicking = new WaitingPerFrame(10, new NaziKicking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("kick"), imageRenderer)));
                 State injured = new WaitingPerFrame(20, new Injured(this, fsm,
                                 imageStatesFromFolder(filepath.concat("injured"), imageRenderer)));
@@ -98,12 +98,15 @@ public class Alita extends Knight {
                                 if (mpBar.getHp() >= Fireball.FIREBALL_MP && upBar.max()) {
                                         mpBar.onDamaged(null, Fireball.FIREBALL_MP);
                                         upBar.setHp(0);
-                                        spell = new LightningBolt(this, 1);
+                                        spell = new Fireball(this, 1);
+                                        spell.shape = new SpriteShape(
+                                                        new Dimension(World.MULTIPLY * 2 * 146,
+                                                                        World.MULTIPLY * 2 * 176),
+                                                        new Dimension(World.MULTIPLY * 2 * 86, World.MULTIPLY * 2 * 60),
+                                                        new Dimension(World.MULTIPLY * 2 * 36,
+                                                                        World.MULTIPLY * 2 * 55));
+                                        spell.setLocation(new Point(getLocation().x, getLocation().y/2));
 
-                                        Fireball spell2 = new Fireball(this, 1);
-                                        spell2.setTeam(getTeam());
-                                        world.addSprite(spell2);
-                                        spell2.done();
                                 } else {
                                         return;
                                 }
@@ -116,6 +119,6 @@ public class Alita extends Knight {
         }
 
         public String toString() {
-                return "Alita";
+                return "Nazi";
         }
 }
