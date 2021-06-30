@@ -2,10 +2,12 @@ package views;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Timer;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,8 +38,6 @@ public class MainMenu extends JPanel {
         setSize(GameView.WIDTH, GameView.HEIGHT);
         setBackground(Color.blue);
 
-        // String filepath = "assets/pic/Sun.png";
-        // setBackgroundImage(filepath);
         team1.clear();
         team2.clear();
 
@@ -49,11 +49,6 @@ public class MainMenu extends JPanel {
 
         // emily.setBorder(new EmptyBorder(20, 140, 20, 140));
         // gray.setBorder(new EmptyBorder(40, 140, 20, 140));
-
-        add(emily1);
-        add(gray1);
-        add(emily2);
-        add(gray2);
 
         addComponentListener(new ComponentAdapter() {
             @Override
@@ -83,12 +78,40 @@ public class MainMenu extends JPanel {
         });
 
         add(start);
+
+        JLabel background1 = getBackgroundIcon("1");
+        JLabel background2 = getBackgroundIcon("2");
+        JLabel background3 = getBackgroundIcon("3");
+        JLabel background4 = getBackgroundIcon("4");
+
+    }
+
+    private JLabel getBackgroundIcon(String filename) {
+        try {
+            String iconPath = "assets/background/gamescene/" + filename + ".png";
+            Image img = ImageIO.read(new File(iconPath));
+            Image dimg = img.getScaledInstance(260, 160, Image.SCALE_SMOOTH);
+            JLabel label = new JLabel(new ImageIcon(dimg));
+            label.setSize(160, 260);
+            label.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    canvas.setBackgroundImage(iconPath);
+                }
+            });
+            add(label);
+            return label;
+        } catch (MalformedURLException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return null;
     }
 
     private JLabel getKnightIcon(String filepath, List<Knight> team, Integer teamNum) {
         try {
             String iconPath = "assets/character/" + filepath + "/icon/" + teamNum.toString() + ".png";
-            String disalbledIconPath = "assets/character/" + filepath + "/icon/" + teamNum.toString()+"-disabled.png";
+            String disalbledIconPath = "assets/character/" + filepath + "/icon/" + teamNum.toString() + "-disabled.png";
 
             JLabel label = new JLabel(new ImageIcon(new File(iconPath).toURI().toURL()));
             label.setDisabledIcon(new ImageIcon(new File(disalbledIconPath).toURI().toURL()));
@@ -103,16 +126,17 @@ public class MainMenu extends JPanel {
                         Knight emily = new Emily(100, knightLocation, direction);
                         team.add(emily);
                         emily.setTeam(teamNum);
-                        e.getComponent().setEnabled(false);                        
+                        e.getComponent().setEnabled(false);
                     } else if (filepath.equals("gray")
                             && team.stream().noneMatch(knight -> knight.toString().equals("Gray"))) {
                         Knight gray = new Gray(100, knightLocation, direction);
                         team.add(gray);
                         gray.setTeam(teamNum);
-                        e.getComponent().setEnabled(false);  
+                        e.getComponent().setEnabled(false);
                     }
                 }
             });
+            add(label);
             return label;
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
@@ -121,25 +145,4 @@ public class MainMenu extends JPanel {
 
     }
 
-    private void setBackgroundImage(String filepath) {
-        try {
-            ImageIcon icon = new ImageIcon(new File(filepath).toURI().toURL());
-
-            this.backgroundImage = icon.getImage();
-            this.width = icon.getIconWidth();
-            this.height = icon.getIconHeight();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // @Override
-    // public void paint(Graphics g) {
-    // Image bufferImage = this.createImage(this.getSize().width,
-    // this.getSize().height);
-    // Graphics bufferGraphics = bufferImage.getGraphics();
-    // bufferGraphics.drawImage(backgroundImage, 85, 50, width / 2, height / 2,
-    // null);
-    // g.drawImage(bufferImage, 120, 100, this);
-    // }
 }

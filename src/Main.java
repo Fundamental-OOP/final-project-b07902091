@@ -45,6 +45,7 @@ public class Main {
     final static String INTRO_PANEL = "Card with Intro panel";
     final static String MENU_PANEL = "Card with Character Selection panel";
     final static String GAME_PANEL = "Card with GamePlay panel";
+    public static String background_path = "assets/background/intro/1.jpg";
 
     public static void main(String[] args) {
         addAudio();
@@ -62,7 +63,7 @@ public class Main {
         List<Knight> team1 = new ArrayList<>();
         List<Knight> team2 = new ArrayList<>();
 
-        Canvas canvas = new Canvas(cards, view, team1, team2);
+        Canvas canvas = new Canvas(cards, view, team1, team2, background_path);
         MainMenu menu = new MainMenu(cards, team1, team2, canvas);
 
 
