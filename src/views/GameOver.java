@@ -27,16 +27,33 @@ public class GameOver extends JPanel {
         setSize(GameView.WIDTH, GameView.HEIGHT);
         setBackground(Color.black);
 
+        super.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.gridx = 1;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.weightx = 0;
+        c.weighty = 0;
+        c.fill = GridBagConstraints.NONE;
         JLabel title = new JLabel("GAME OVER"); // title
-        title.setForeground(Color.gray);
+        title.setForeground(Color.red);
         title.setFont(new Font("Times New Roman", Font.BOLD, 62));
 
-        add(title);
+        add(title, c);
 
+        c.gridx = 1;
+        c.gridy = 2;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.weightx = 0;
+        c.weighty = 0;
+        c.fill = GridBagConstraints.NONE;
         JLabel restart = new JLabel("continue?"); // title
         restart.setForeground(Color.gray);
         restart.setFont(new Font("Times New Roman", Font.BOLD, 42));
-        add(restart);
+        add(restart, c);
 
         addComponentListener(new ComponentAdapter() {
             @Override
@@ -50,6 +67,13 @@ public class GameOver extends JPanel {
             }
         });
 
+        c.gridx = 0;
+        c.gridy = 3;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.weightx = 0;
+        c.weighty = 0;
+        c.fill = GridBagConstraints.NONE;
         JButton next = new JButton("Yes");
         next.addActionListener(new ActionListener() {
             @Override
@@ -57,7 +81,15 @@ public class GameOver extends JPanel {
                 ((CardLayout) parent.getLayout()).show(cards, "Card with Character Selection panel");
             }
         });
-        add(next);
+        add(next, c);
+
+        c.gridx = 2;
+        c.gridy = 3;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.weightx = 0;
+        c.weighty = 0;
+        c.fill = GridBagConstraints.NONE;
         JButton exit = new JButton("No");
         exit.addActionListener(new ActionListener() {
             @Override
@@ -65,7 +97,7 @@ public class GameOver extends JPanel {
                 ((CardLayout) parent.getLayout()).show(cards, "Card with Intro panel");
             }
         });
-        add(exit);
+        add(exit, c);
     }
 
     private JLabel getKnightIcon(String filepath, List<Knight> team, Integer teamNum) {

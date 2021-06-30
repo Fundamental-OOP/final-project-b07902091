@@ -9,6 +9,7 @@ import fsm.State;
 import fsm.WaitingPerFrame;
 import model.Direction;
 import model.SpriteShape;
+import model.World;
 import skill.FireRing.FireRing;
 import skill.Fire.Fire;
 import skill.Fireball.Fireball;
@@ -23,10 +24,12 @@ public class Gray extends Knight {
 
         public Gray(int damage, Point location, Direction face) {
                 super(damage, location, face);
-                SpriteShape shape = new SpriteShape(new Dimension(146, 176), new Dimension(33, 38),
-                                new Dimension(66, 135));
-                SpriteShape crouchShape = new SpriteShape(new Dimension(146, 176), new Dimension(33, 88),
-                                new Dimension(66, 65));
+                SpriteShape shape = new SpriteShape(new Dimension(World.MULTIPLY * 146, World.MULTIPLY * 176),
+                                new Dimension(World.MULTIPLY * 33, World.MULTIPLY * 38),
+                                new Dimension(World.MULTIPLY * 66, World.MULTIPLY * 135));
+                SpriteShape crouchShape = new SpriteShape(new Dimension(World.MULTIPLY * 146, World.MULTIPLY * 176),
+                                new Dimension(World.MULTIPLY * 33, World.MULTIPLY * 88),
+                                new Dimension(World.MULTIPLY * 66, World.MULTIPLY * 65));
 
                 this.shape = shape;
                 this.fsm = createTransitionTable();

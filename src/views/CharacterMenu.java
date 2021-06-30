@@ -145,6 +145,7 @@ public class CharacterMenu extends JPanel {
             // label.setBorder(BorderFactory.createEmptyBorder());
             label.setContentAreaFilled(false);
             label.setPreferredSize(new Dimension(80, 80));
+            label.setFocusPainted(false);
             // add(label);
             return label;
         } catch (MalformedURLException e1) {
@@ -156,7 +157,7 @@ public class CharacterMenu extends JPanel {
 
     protected void handleClickKnight(Component component, List<Knight> team, Integer teamNum, String filepath) {
         if (!team.removeIf(k -> k.toString().toLowerCase().equals(filepath))) {
-            Point knightLocation = (teamNum == 1) ? new Point(300, 400) : new Point(700, 400);
+            Point knightLocation = (teamNum == 1) ? new Point(300, 250) : new Point(700, 250);
             Direction direction = (teamNum == 1) ? Direction.RIGHT : Direction.LEFT;
             Knight knight;
 
