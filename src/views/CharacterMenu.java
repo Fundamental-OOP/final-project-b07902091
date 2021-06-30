@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.awt.AlphaComposite;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -20,6 +21,7 @@ import model.Direction;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.awt.Composite;
 import java.io.File;
 import java.io.IOException;
 
@@ -235,7 +237,15 @@ public class CharacterMenu extends JPanel {
         super.paintComponent(g);
         BufferedImage image;
         image = read_image("assets/background/menu/1.png");
-        g.drawImage(image, 0, 0,1300,800, null);
+        //float alpha = 0.5f;
+        //AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
+        //g.setComposite(ac);
+        //float opacity = 0.5f;
+        //g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OUT, opacity));
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        g2d.drawImage(image, 0, 0,1300,800, null);
+        //g.setComposite(ac);
     }
 
     private static BufferedImage read_image(String background) {
