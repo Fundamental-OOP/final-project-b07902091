@@ -6,14 +6,15 @@ import java.awt.*;
 /**
  * @author - johnny850807@gmail.com (Waterball)
  */
-public class MagicPointBar extends HealthPointBar {
+public class UltimatePointBar extends HealthPointBar {
 
-    public MagicPointBar(int mp) {
-        super(mp);
+    public UltimatePointBar(int up) {
+        super(up);
+        this.hp = 0;
     }
 
-    public void setMp(int mp) {
-        setHp(mp);
+    public void setUp(int up) {
+        setHp(up);
     }
 
     @Override
@@ -22,12 +23,12 @@ public class MagicPointBar extends HealthPointBar {
         int width = (int) (hp * owner.getRange().getWidth() / maxHp);
         g.setColor(Color.RED);
         g.fillRect(range.x, range.y, (int) owner.getRange().getWidth(), range.height);
-        g.setColor(Color.BLUE);
+        g.setColor(Color.ORANGE);
         g.fillRect(range.x, range.y, width, range.height);
     }
 
     @Override
     public Rectangle getRange() {
-        return new Rectangle(owner.getX(), owner.getY() - 20, (int) owner.getRange().getWidth(), 10);
+        return new Rectangle(owner.getX(), owner.getY() - 10, (int) owner.getRange().getWidth(), 10);
     }
 }
