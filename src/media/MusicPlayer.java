@@ -5,10 +5,12 @@ import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class MusicPlayer implements Runnable {
     private String filepath;
     private Clip music;
+
     public MusicPlayer(String filepath) {
         this.filepath = filepath;
     }
@@ -22,6 +24,10 @@ public class MusicPlayer implements Runnable {
 
                 music = AudioSystem.getClip(); // Use Clip for playback
                 music.open(audioStream);
+
+                FloatControl gainControl = (FloatControl) music.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(-10.0f);
+
                 music.start();
                 music.loop(Clip.LOOP_CONTINUOUSLY);
                 Thread.sleep(100000);

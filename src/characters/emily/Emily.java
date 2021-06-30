@@ -68,7 +68,8 @@ public class Emily extends Knight {
 
     @Override
     public void skill(int id) {
-        super.skill(id);
+        if (fsm.currentState().toString().equals("Skill"))
+                return;
         switch (id) {
             case 1:
                 spell = new LightningBolt(this, 1);
@@ -82,6 +83,7 @@ public class Emily extends Knight {
         }
         spell.setTeam(getTeam());
         world.addSprite(spell);
+        super.skill(id);
     }
 
     public String toString(){

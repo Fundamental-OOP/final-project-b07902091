@@ -70,7 +70,9 @@ public class Gray extends Knight {
 
         @Override
         public void skill(int id) {
-                super.skill(id);
+                System.out.print(fsm.currentState().toString());
+                if (fsm.currentState().toString().equals("Skill"))
+                        return;
                 switch (id) {
                         case 1:
                                 spell = new Fireball(this, 1);
@@ -84,6 +86,7 @@ public class Gray extends Knight {
                 }
                 spell.setTeam(getTeam());
                 world.addSprite(spell);
+                super.skill(id);
         }
 
         public String toString() {
