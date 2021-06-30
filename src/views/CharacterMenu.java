@@ -21,7 +21,6 @@ import characters.knight.Knight;
 import characters.nazi.Nazi;
 import model.Direction;
 
-
 import java.awt.event.*;
 
 public class CharacterMenu extends JPanel {
@@ -36,7 +35,7 @@ public class CharacterMenu extends JPanel {
         this.team2 = team2;
         super.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy = 1;
         c.gridwidth = 1;
         c.gridheight = 1;
@@ -52,6 +51,7 @@ public class CharacterMenu extends JPanel {
         title.setFont(new Font("Times New Roman", Font.BOLD, 52));
 
         add(title, c);
+
         c.gridx = 0;
         c.gridy = 2;
         c.gridwidth = 1;
@@ -60,8 +60,8 @@ public class CharacterMenu extends JPanel {
         c.weighty = 1;
         c.fill = GridBagConstraints.NONE;
 
-        JButton emily1 = getKnightIcon("alita", team1, 1);
-        add(emily1, c);
+        JButton alita1 = getKnightIcon("alita", team1, 1);
+        add(alita1, c);
 
         c.gridx = 1;
         c.gridy = 2;
@@ -73,7 +73,48 @@ public class CharacterMenu extends JPanel {
         JButton gray1 = getKnightIcon("gray", team1, 1);
         add(gray1, c);
 
+        c.gridx = 2;
+        c.gridy = 2;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.weightx = 0;
+        c.weighty = 1;
+        c.fill = GridBagConstraints.NONE;
+        JButton emily1 = getKnightIcon("emily", team1, 1);
+        add(emily1, c);
+
         c.gridx = 3;
+        c.gridy = 2;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.weightx = 0;
+        c.weighty = 1;
+        c.fill = GridBagConstraints.NONE;
+        JButton nazi1 = getKnightIcon("nazi", team1, 1);
+        add(nazi1, c);
+
+        c.gridx = 5;
+        c.gridy = 2;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.weightx = 0;
+        c.weighty = 1;
+        c.fill = GridBagConstraints.NONE;
+
+        JButton alita2 = getKnightIcon("alita", team2, 2);
+        add(alita2, c);
+
+        c.gridx = 6;
+        c.gridy = 2;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.weightx = 0;
+        c.weighty = 1;
+        c.fill = GridBagConstraints.NONE;
+        JButton gray2 = getKnightIcon("gray", team2, 2);
+        add(gray2, c);
+
+        c.gridx = 7;
         c.gridy = 2;
         c.gridwidth = 1;
         c.gridheight = 1;
@@ -83,15 +124,15 @@ public class CharacterMenu extends JPanel {
         JButton emily2 = getKnightIcon("emily", team2, 2);
         add(emily2, c);
 
-        c.gridx = 4;
+        c.gridx = 8;
         c.gridy = 2;
         c.gridwidth = 1;
         c.gridheight = 1;
         c.weightx = 0;
         c.weighty = 1;
         c.fill = GridBagConstraints.NONE;
-        JButton gray2 = getKnightIcon("nazi", team2, 2);
-        add(gray2, c);
+        JButton nazi2 = getKnightIcon("nazi", team2, 2);
+        add(nazi2, c);
 
         addComponentListener(new ComponentAdapter() {
             @Override
@@ -105,14 +146,19 @@ public class CharacterMenu extends JPanel {
                 team1.clear();
                 team2.clear();
                 emily1.setEnabled(false);
-                emily2.setEnabled(false);
                 gray1.setEnabled(false);
+                alita1.setEnabled(false);
+                alita1.setEnabled(false);
+
+                emily2.setEnabled(false);
                 gray2.setEnabled(false);
+                nazi2.setEnabled(false);
+                nazi2.setEnabled(false);
                 reRender();
             }
         });
 
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy = 3;
         c.gridwidth = 1;
         c.gridheight = 1;
@@ -160,6 +206,8 @@ public class CharacterMenu extends JPanel {
 
     protected void handleClickKnight(Component component, List<Knight> team, Integer teamNum, String filepath) {
         if (!team.removeIf(k -> k.toString().toLowerCase().equals(filepath))) {
+            if (team.size() > 1)
+                return;
             Point knightLocation = (teamNum == 1) ? new Point(300, 250) : new Point(700, 250);
             Direction direction = (teamNum == 1) ? Direction.RIGHT : Direction.LEFT;
             Knight knight;
