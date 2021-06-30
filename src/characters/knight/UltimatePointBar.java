@@ -17,6 +17,15 @@ public class UltimatePointBar extends HealthPointBar {
         setHp(up);
     }
 
+    public void addUp() {
+        if(hp+50<maxHp){
+            setHp(hp+50);
+        }
+        else{
+            setHp(maxHp);
+        }
+    }
+
     @Override
     public void render(Graphics g) {
         Rectangle range = getRange();

@@ -96,6 +96,10 @@ public class Knight extends UltimatePointSprite {
         // fsm.addTransition(from(jumping).when(Event.DEAD).to(dead)); TODO add jump-> change hero, injured
     }
 
+    public void addUp() {
+        upBar.addUp();
+    }
+
     public void attack() {
         fsm.trigger(ATTACK);
     }
