@@ -52,7 +52,7 @@ public class Intro extends JPanel {
         // set title
         titlePanel = new JPanel(); // title panel, layout should be default works
         titlePanel.setBackground(Color.black);
-        titlePanel.setBounds(LEFT, 200, WIDTH, 100);
+        titlePanel.setBounds(LEFT, 100, WIDTH, 100);
         title = new JLabel("LA Street Fight!!!"); // title
         title.setForeground(Color.red);
         title.setFont(new Font("Times New Roman", Font.BOLD, 72));
@@ -62,7 +62,7 @@ public class Intro extends JPanel {
         buttonPanel = new JPanel(); // start button panel
         buttonPanel.setLayout(new GridLayout(2, 1));
         buttonPanel.setBackground(Color.black);
-        buttonPanel.setBounds(LEFT, 400, WIDTH, 200);
+        buttonPanel.setBounds(LEFT+125, 400, WIDTH-300, 200);
         startButton = new JButton("START"); // start button
         startButton.setBackground(Color.white);
         startButton.setForeground(Color.blue);
