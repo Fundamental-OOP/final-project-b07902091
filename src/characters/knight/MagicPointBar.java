@@ -40,10 +40,10 @@ public class MagicPointBar extends HealthPointBar {
     public Rectangle getRange() {
         //return new Rectangle(owner.getX(), owner.getY() - 30, (int) owner.getRange().getWidth(), 10);
         if(owner.getTeam() == 1){
-            return new Rectangle(10, 20, 400, 10);
+            return new Rectangle(10, 35, 425, 15);
         }
         else{
-            return new Rectangle(890, 20, 400, 10);   
+            return new Rectangle(865, 35, 425, 15);   
         }
         
     }

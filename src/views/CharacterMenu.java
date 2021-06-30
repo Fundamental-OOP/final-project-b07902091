@@ -18,6 +18,11 @@ import characters.gray.Gray;
 import characters.knight.Knight;
 import model.Direction;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 import java.awt.event.*;
 
 public class CharacterMenu extends JPanel {
@@ -40,12 +45,13 @@ public class CharacterMenu extends JPanel {
         c.fill = GridBagConstraints.NONE;
 
         setSize(GameView.WIDTH, GameView.HEIGHT);
-        setBackground(Color.blue);
-
+        //setBackground(Color.blue);
+        
         JLabel title = new JLabel("SELECT PLAY"); // title
         title.setForeground(Color.black);
         title.setFont(new Font("Times New Roman", Font.BOLD, 52));
-
+       
+        
         add(title, c);
         c.gridx = 0;
         c.gridy = 2;
@@ -54,7 +60,7 @@ public class CharacterMenu extends JPanel {
         c.weightx = 0;
         c.weighty = 1;
         c.fill = GridBagConstraints.NONE;
-
+        
         JButton emily1 = getKnightIcon("emily", team1, 1);
         add(emily1, c);
         
@@ -124,7 +130,7 @@ public class CharacterMenu extends JPanel {
             }
         });
         next.setEnabled(false);
-        next.setBounds(60,400,60,40);
+        next.setBounds(60,400,70,40);
         add(next, c);
 
     }
@@ -223,5 +229,21 @@ public class CharacterMenu extends JPanel {
             g.drawImage(getProfileImage(team2.get(1).toString().toLowerCase()), 1080, 300, -300, 400, this);
         }
 
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        BufferedImage image;
+        image = read_image("assets/background/menu/1.png");
+        g.drawImage(image, 0, 0,1300,800, null);
+    }
+
+    private static BufferedImage read_image(String background) {
+        try {
+            return ImageIO.read(new File(background));
+        } catch (IOException ex) {
+            System.out.println("read image error");
+        }
+        return null;
     }
 }
