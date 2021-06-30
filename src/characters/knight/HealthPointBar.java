@@ -24,6 +24,10 @@ public class HealthPointBar extends Sprite {
         this.hp = hp;
     }
 
+    public int getHp() {
+        return hp;
+    }
+
     @Override
     public void update() {
     }
@@ -35,7 +39,11 @@ public class HealthPointBar extends Sprite {
         g.setColor(Color.RED);
         g.fillRect(range.x, range.y, range.width, range.height);
         g.setColor(Color.GREEN);
-        g.fillRect(range.x, range.y, width, range.height);
+
+        if (owner.getTeam() == 0)
+            g.fillRect(range.x, range.y, width, range.height);
+        else
+            g.fillRect(range.x + range.width - width, range.y, width, range.height);
     }
 
     @Override
@@ -45,14 +53,14 @@ public class HealthPointBar extends Sprite {
 
     @Override
     public Rectangle getRange() {
-        //return new Rectangle(owner.getX(), owner.getY() - 30, (int) owner.getRange().getWidth(), 10);
-        if(owner.getTeam() == 1){
+        // return new Rectangle(owner.getX(), owner.getY() - 30, (int)
+        // owner.getRange().getWidth(), 10);
+        if (owner.getTeam() == 1) {
             return new Rectangle(10, 10, 450, 15);
+        } else {
+            return new Rectangle(840, 10, 450, 15);
         }
-        else{
-            return new Rectangle(840, 10, 450, 15);   
-        }
-        
+
     }
 
     @Override

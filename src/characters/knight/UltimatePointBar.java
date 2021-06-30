@@ -17,6 +17,11 @@ public class UltimatePointBar extends HealthPointBar {
         setHp(up);
     }
 
+    public boolean max(){
+        return hp == maxHp;
+    }
+
+
     public void addUp() {
         if (hp + up_to_add < maxHp) {
             setHp(hp + up_to_add);
@@ -32,7 +37,11 @@ public class UltimatePointBar extends HealthPointBar {
         g.setColor(Color.gray);
         g.fillRect(range.x, range.y, range.width, range.height);
         g.setColor(Color.cyan);
-        g.fillRect(range.x, range.y, width, range.height);
+
+        if (owner.getTeam() == 0)
+            g.fillRect(range.x, range.y, width, range.height);
+        else
+            g.fillRect(range.x + range.width - width, range.y, width, range.height);
     }
 
     @Override
