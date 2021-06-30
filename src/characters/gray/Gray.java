@@ -86,4 +86,7 @@ public class Gray extends Knight {
                 world.addSprite(spell);
         }
 
+        public String toString() {
+                return "Gray";
+        }
 }

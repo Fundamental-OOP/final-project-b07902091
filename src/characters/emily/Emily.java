@@ -83,4 +83,8 @@ public class Emily extends Knight {
         spell.setTeam(getTeam());
         world.addSprite(spell);
     }
+
+    public String toString(){
+            return "Emily";
+    }
 }

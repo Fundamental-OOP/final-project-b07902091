@@ -100,6 +100,7 @@ public class Game extends GameLoop {
         if ((team1.stream().filter(knight -> !knight.isDead()).count() == 0)
                 || (team2.stream().filter(knight -> !knight.isDead()).count() == 0)) {
             System.out.println("GameOver");
+            stop();
             ((Canvas)getView()).gameOver();
             return true;
         }
