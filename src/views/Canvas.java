@@ -17,6 +17,10 @@ import characters.knight.KnightCollisionHandler;
 import java.util.List;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Canvas extends JPanel implements GameLoop.View {
     public static final int P1 = 1;
@@ -46,6 +50,9 @@ public class Canvas extends JPanel implements GameLoop.View {
     private static int RIGHT_last_pressed = 0;
     private static boolean DOWN_plus_LR = false;
     private static boolean ulti_available_P2 = false;
+    // detect whether change_background
+    private static boolean change_background = false;
+    private static String background_path = "assets/background/intro/1.jpg";
 
     private Game game;
     private World world;
@@ -55,6 +62,7 @@ public class Canvas extends JPanel implements GameLoop.View {
     private GameView view;
     private List<Knight> team1;
     private List<Knight> team2;
+    private BufferedImage backgroundImage;
 
     public Canvas(JPanel cards, GameView view, List<Knight> team1, List<Knight> team2) {
         super();
@@ -62,6 +70,7 @@ public class Canvas extends JPanel implements GameLoop.View {
         this.view = view;
         this.team1 = team1;
         this.team2 = team2;
+        backgroundImage = read_image(background_path);
         setFocusable(true);
         addComponentListener(new ComponentAdapter() {
             @Override
@@ -87,7 +96,7 @@ public class Canvas extends JPanel implements GameLoop.View {
         view.setVisible(true);
     }
 
-    public void gameOver(){
+    public void gameOver() {
         ((CardLayout) cards.getLayout()).show(cards, "Card with Character Selection panel");
     }
 
@@ -100,11 +109,30 @@ public class Canvas extends JPanel implements GameLoop.View {
     @Override
     protected void paintComponent(Graphics g /* paintbrush */) {
         super.paintComponent(g);
-        // Now, let's paint
-        g.setColor(Color.WHITE); // paint background with all white
-        g.fillRect(0, 0, GameView.WIDTH, GameView.HEIGHT);
+        // // Now, let's paint
+        // g.setColor(Color.WHITE); // paint background with all white
+        // g.fillRect(0, 0, GameView.WIDTH, GameView.HEIGHT);
+        if (change_background) {
+            backgroundImage = read_image(background_path);
+        }
+        g.drawImage(backgroundImage, 0, 0, GameView.WIDTH, GameView.HEIGHT, this);
 
         world.render(g); // ask the world to paint itself and paint the sprites on the canvas
+    }
+
+    public void changeBackground(String path) {
+        background_path = path;
+        change_background = true;
+    }
+
+    private static BufferedImage read_image(String background) {
+        try {
+            change_background = false;
+            return ImageIO.read(new File(background));
+        } catch (IOException ex) {
+            System.out.println("read image error");
+        }
+        return null;
     }
 
     private void addKeyListener() {
