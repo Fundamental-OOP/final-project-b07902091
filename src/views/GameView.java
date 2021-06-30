@@ -11,7 +11,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.time.LocalTime;
 import java.time.ZoneId;
-
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 /**
  * @author - johnny850807@gmail.com (Waterball)
  */
@@ -45,9 +48,11 @@ public class GameView extends JFrame {
     private static int RIGHT_last_pressed = 0;
     private static boolean DOWN_plus_LR = false;
     private static boolean ulti_available_P2 = false;
-
+    //detect whether change_background 
+    private static boolean change_background = true;
     private Canvas canvas;
     private Game game;
+    //sdprivate Image img = ImageIO.read(new File("assets/skill/lightning/flying/3.png"));
 
     public GameView() throws HeadlessException {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -221,7 +226,13 @@ public class GameView extends JFrame {
 
     public static class Canvas extends JPanel implements GameLoop.View {
         private World world;
-
+        private BufferedImage image; 
+        
+        private final String background1="assets/background/1.png";
+        private final String background2="assets/background/2.png";
+        public Canvas() {
+            image = read_image(background1);
+        }
         @Override
         public void render(World world) {
             this.world = world;
@@ -232,10 +243,27 @@ public class GameView extends JFrame {
         protected void paintComponent(Graphics g /* paintbrush */) {
             super.paintComponent(g);
             // Now, let's paint
-            g.setColor(Color.WHITE); // paint background with all white
-            g.fillRect(0, 0, GameView.WIDTH, GameView.HEIGHT);
+            //System.out.println("hi");
+            if(change_background){
+                image = read_image(background2);
+            }
+            g.drawImage(image, 0,0, GameView.WIDTH, GameView.HEIGHT,this);
+            //g.drawImage(img, 0, 0, null);
+            //g.setColor(Color.BLUE); // paint background with all white
+            //g.fillRect(0, 0, GameView.WIDTH, GameView.HEIGHT);
 
             world.render(g); // ask the world to paint itself and paint the sprites on the canvas
         }
+    }
+
+    private static BufferedImage read_image(String background){
+        BufferedImage image = null;
+        change_background = false;
+        try {                
+            image = ImageIO.read(new File(background));
+        } catch (IOException ex) {
+                System.out.println("read image error");
+        }
+        return image;
     }
 }
