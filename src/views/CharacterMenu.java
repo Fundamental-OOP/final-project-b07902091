@@ -47,7 +47,7 @@ public class CharacterMenu extends JPanel {
         c.fill = GridBagConstraints.NONE;
 
         setSize(GameView.WIDTH, GameView.HEIGHT);
-        //setBackground(Color.blue);
+        setBackground(Color.blue);
         
         JLabel title = new JLabel("SELECT PLAY"); // title
         title.setForeground(Color.black);
@@ -231,29 +231,5 @@ public class CharacterMenu extends JPanel {
             g.drawImage(getProfileImage(team2.get(1).toString().toLowerCase()), 1080, 300, -300, 400, this);
         }
 
-    }
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        BufferedImage image;
-        image = read_image("assets/background/menu/1.png");
-        //float alpha = 0.5f;
-        //AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
-        //g.setComposite(ac);
-        //float opacity = 0.5f;
-        //g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OUT, opacity));
-        Graphics2D g2d = (Graphics2D)g;
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-        g2d.drawImage(image, 0, 0,1300,800, null);
-        //g.setComposite(ac);
-    }
-
-    private static BufferedImage read_image(String background) {
-        try {
-            return ImageIO.read(new File(background));
-        } catch (IOException ex) {
-            System.out.println("read image error");
-        }
-        return null;
     }
 }

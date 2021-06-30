@@ -1,6 +1,5 @@
 package characters.knight;
 
-
 import java.awt.*;
 
 /**
@@ -8,6 +7,7 @@ import java.awt.*;
  */
 public class UltimatePointBar extends HealthPointBar {
     private int up_to_add = 50;
+
     public UltimatePointBar(int up) {
         super(up);
         this.hp = 0;
@@ -18,10 +18,9 @@ public class UltimatePointBar extends HealthPointBar {
     }
 
     public void addUp() {
-        if(hp+up_to_add<maxHp){
-            setHp(hp+up_to_add);
-        }
-        else{
+        if (hp + up_to_add < maxHp) {
+            setHp(hp + up_to_add);
+        } else {
             setHp(maxHp);
         }
     }
@@ -30,21 +29,19 @@ public class UltimatePointBar extends HealthPointBar {
     public void render(Graphics g) {
         Rectangle range = getRange();
         int width = (int) (hp * range.width / maxHp);
-        g.setColor(Color.RED);
+        g.setColor(Color.gray);
         g.fillRect(range.x, range.y, range.width, range.height);
-        g.setColor(Color.ORANGE);
+        g.setColor(Color.cyan);
         g.fillRect(range.x, range.y, width, range.height);
     }
 
     @Override
     public Rectangle getRange() {
-        //return new Rectangle(owner.getX(), owner.getY() - 30, (int) owner.getRange().getWidth(), 10);
-        if(owner.getTeam() == 1){
+        if (owner.getTeam() == 1) {
             return new Rectangle(10, 60, 400, 15);
+        } else {
+            return new Rectangle(890, 60, 400, 15);
         }
-        else{
-            return new Rectangle(890, 60, 400, 15);   
-        }
-        
+
     }
 }

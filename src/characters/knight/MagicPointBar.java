@@ -30,7 +30,7 @@ public class MagicPointBar extends HealthPointBar {
     public void render(Graphics g) {
         Rectangle range = getRange();
         int width = (int) (hp * range.width / maxHp);
-        g.setColor(Color.RED);
+        g.setColor(Color.gray);
         g.fillRect(range.x, range.y, range.width, range.height);
         g.setColor(Color.BLUE);
         g.fillRect(range.x, range.y, width, range.height);

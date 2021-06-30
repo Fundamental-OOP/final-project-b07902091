@@ -32,11 +32,9 @@ public class Intro extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if(startButton.getForeground().equals(Color.blue)){
                 startButton.setForeground(Color.white);
-                quitButton.setForeground(Color.white);
             }
             else{
                 startButton.setForeground(Color.blue);
-                quitButton.setForeground(Color.blue);
             }
         }
     });
