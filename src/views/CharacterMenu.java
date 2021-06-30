@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import characters.alita.Alita;
 import characters.emily.Emily;
 import characters.gray.Gray;
 import characters.knight.Knight;
@@ -63,7 +64,7 @@ public class CharacterMenu extends JPanel {
         c.weighty = 1;
         c.fill = GridBagConstraints.NONE;
         
-        JButton emily1 = getKnightIcon("emily", team1, 1);
+        JButton emily1 = getKnightIcon("alita", team1, 1);
         add(emily1, c);
         
         
@@ -170,9 +171,11 @@ public class CharacterMenu extends JPanel {
             Knight knight;
 
             if (filepath.equals("emily"))
-                knight = new Emily(100, knightLocation, direction);
+                knight = new Emily(knightLocation, direction);
             else if (filepath.equals("gray"))
-                knight = new Gray(100, knightLocation, direction);
+                knight = new Gray(knightLocation, direction);
+            else if (filepath.equals("alita"))
+                    knight = new Alita(knightLocation, direction);
             else {
                 component.setEnabled(false);
                 return;

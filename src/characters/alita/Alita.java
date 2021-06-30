@@ -1,4 +1,4 @@
-package characters.gray;
+package characters.alita;
 
 import java.awt.*;
 
@@ -10,20 +10,23 @@ import fsm.WaitingPerFrame;
 import model.Direction;
 import model.SpriteShape;
 import model.World;
-import skill.FireRing.FireRing;
 import skill.Fire.Fire;
 import skill.Fireball.Fireball;
+import skill.IceWall.IceWall;
+import skill.Lightning.Lightning;
+import skill.LightningBolt.LightningBolt;
 
 import static utils.ImageStateUtils.imageStatesFromFolder;
+import static characters.knight.Knight.Event.*;
 
-public class Gray extends Knight {
-        public static final int DAMAGE = 80;
-        public static final String AUDIO_CAST = "gray-cast";
-        public static final String AUDIO_INJURED = "gray-injured";
-        public static final String AUDIO_DEAD = "gray-dead";
+public class Alita extends Knight {
+        public static final int DAMAGE = 60;
+        public static final String AUDIO_CAST = "emily-cast";
+        public static final String AUDIO_INJURED = "emily-injured";
+        public static final String AUDIO_DEAD = "emily-dead";
 
-        public Gray(Point location, Direction face) {
-                super(DAMAGE, location, face);
+        public Alita(Point location, Direction face) {
+                super(60, location, face);
                 SpriteShape shape = new SpriteShape(new Dimension(World.MULTIPLY * 146, World.MULTIPLY * 176),
                                 new Dimension(World.MULTIPLY * 33, World.MULTIPLY * 38),
                                 new Dimension(World.MULTIPLY * 66, World.MULTIPLY * 135));
@@ -41,7 +44,7 @@ public class Gray extends Knight {
         }
 
         private FiniteStateMachine createTransitionTable() {
-                String filepath = "assets/character/gray/";
+                String filepath = "assets/character/alita/";
                 FiniteStateMachine fsm = new FiniteStateMachine();
 
                 ImageRenderer imageRenderer = new KnightImageRenderer(this);
@@ -50,15 +53,15 @@ public class Gray extends Knight {
                                 new Idle(imageStatesFromFolder(filepath.concat("idle"), imageRenderer)));
                 State walking = new WaitingPerFrame(2,
                                 new Walking(this, imageStatesFromFolder(filepath.concat("walking"), imageRenderer)));
-                State attacking = new WaitingPerFrame(6, new GrayAttacking(this, fsm,
+                State attacking = new WaitingPerFrame(8, new AlitaAttacking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("attack"), imageRenderer)));
                 State jumping = new WaitingPerFrame(4, new Jumping(this, fsm,
                                 imageStatesFromFolder(filepath.concat("jumping"), imageRenderer)));
                 State crouch = new WaitingPerFrame(4,
                                 new Crouch(this, imageStatesFromFolder(filepath.concat("crouch"), imageRenderer)));
-                State casting = new WaitingPerFrame(7,
+                State casting = new WaitingPerFrame(12,
                                 new Cast(this, fsm, imageStatesFromFolder(filepath.concat("cast"), imageRenderer)));
-                State kicking = new WaitingPerFrame(5, new GrayKicking(this, fsm,
+                State kicking = new WaitingPerFrame(10, new AlitaKicking(this, fsm,
                                 imageStatesFromFolder(filepath.concat("kick"), imageRenderer)));
                 State injured = new WaitingPerFrame(20, new Injured(this, fsm,
                                 imageStatesFromFolder(filepath.concat("injured"), imageRenderer)));
@@ -68,19 +71,17 @@ public class Gray extends Knight {
                 knightTransitionTable(fsm, idle, walking, attacking, jumping, crouch, casting, kicking, injured, dead);
 
                 return fsm;
-
         }
 
         @Override
         public void skill(int id) {
-                System.out.print(fsm.currentState().toString());
                 if (fsm.currentState().toString().equals("Skill"))
                         return;
                 switch (id) {
                         case 1:
                                 if (mpBar.getHp() >= Fireball.FIREBALL_MP) {
                                         mpBar.onDamaged(null, Fireball.FIREBALL_MP);
-                                        spell = new Fireball(this, 1);
+                                        spell = new LightningBolt(this, 1);
                                 } else {
                                         return;
                                 }
@@ -88,7 +89,7 @@ public class Gray extends Knight {
                         case 2:
                                 if (mpBar.getHp() >= Fireball.FIREBALL_MP) {
                                         mpBar.onDamaged(null, Fireball.FIREBALL_MP);
-                                        spell = new Fire(this, 1);
+                                        spell = new Fireball(this, 100);
                                 } else {
                                         return;
                                 }
@@ -97,18 +98,24 @@ public class Gray extends Knight {
                                 if (mpBar.getHp() >= Fireball.FIREBALL_MP && upBar.max()) {
                                         mpBar.onDamaged(null, Fireball.FIREBALL_MP);
                                         upBar.setHp(0);
-                                        spell = new FireRing(this, 1);
+                                        spell = new LightningBolt(this, 1);
+
+                                        Fireball spell2 = new Fireball(this, 1);
+                                        spell2.setTeam(getTeam());
+                                        world.addSprite(spell2);
+                                        spell2.done();
                                 } else {
                                         return;
                                 }
                                 break;
                 }
+
                 spell.setTeam(getTeam());
                 world.addSprite(spell);
                 super.skill(id);
         }
 
         public String toString() {
-                return "Gray";
+                return "Alita";
         }
 }
