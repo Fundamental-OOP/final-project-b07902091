@@ -7,7 +7,7 @@ import java.awt.*;
  * @author - johnny850807@gmail.com (Waterball)
  */
 public class UltimatePointBar extends HealthPointBar {
-
+    private int up_to_add = 50;
     public UltimatePointBar(int up) {
         super(up);
         this.hp = 0;
@@ -18,8 +18,8 @@ public class UltimatePointBar extends HealthPointBar {
     }
 
     public void addUp() {
-        if(hp+50<maxHp){
-            setHp(hp+50);
+        if(hp+up_to_add<maxHp){
+            setHp(hp+up_to_add);
         }
         else{
             setHp(maxHp);

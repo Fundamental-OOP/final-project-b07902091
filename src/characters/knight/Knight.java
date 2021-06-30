@@ -157,6 +157,7 @@ public class Knight extends UltimatePointSprite {
     }
 
     public void update() {
+        super.update();
         fsm.update();
     }
 

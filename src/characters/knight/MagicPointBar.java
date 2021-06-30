@@ -7,13 +7,23 @@ import java.awt.*;
  * @author - johnny850807@gmail.com (Waterball)
  */
 public class MagicPointBar extends HealthPointBar {
-
+    private int mp_to_add = 5;
     public MagicPointBar(int mp) {
         super(mp);
+        
     }
 
     public void setMp(int mp) {
         setHp(mp);
+    }
+
+    public void addMp() {
+        if(hp+mp_to_add<maxHp){
+            setHp(hp+mp_to_add);
+        }
+        else{
+            setHp(maxHp);
+        }
     }
 
     @Override
