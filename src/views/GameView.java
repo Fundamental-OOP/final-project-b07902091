@@ -49,7 +49,8 @@ public class GameView extends JFrame {
     private static boolean DOWN_plus_LR = false;
     private static boolean ulti_available_P2 = false;
     //detect whether change_background 
-    private static boolean change_background = true;
+    private static boolean change_background = false;
+    private static String background_path="assets/background/intro/1.jpg";
     private Canvas canvas;
     private Game game;
     //sdprivate Image img = ImageIO.read(new File("assets/skill/lightning/flying/3.png"));
@@ -228,10 +229,10 @@ public class GameView extends JFrame {
         private World world;
         private BufferedImage image; 
         
-        private final String background1="assets/background/1.png";
-        private final String background2="assets/background/2.png";
+        
+       
         public Canvas() {
-            image = read_image(background1);
+            image = read_image(background_path);
         }
         @Override
         public void render(World world) {
@@ -245,7 +246,7 @@ public class GameView extends JFrame {
             // Now, let's paint
             //System.out.println("hi");
             if(change_background){
-                image = read_image(background2);
+                image = read_image(background_path);
             }
             g.drawImage(image, 0,0, GameView.WIDTH, GameView.HEIGHT,this);
             //g.drawImage(img, 0, 0, null);
@@ -254,6 +255,11 @@ public class GameView extends JFrame {
 
             world.render(g); // ask the world to paint itself and paint the sprites on the canvas
         }
+    }
+
+    public void changeBackground(String path){
+        background_path = path;
+        change_background = true;
     }
 
     private static BufferedImage read_image(String background){
