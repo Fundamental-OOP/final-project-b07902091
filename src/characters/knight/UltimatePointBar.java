@@ -29,15 +29,22 @@ public class UltimatePointBar extends HealthPointBar {
     @Override
     public void render(Graphics g) {
         Rectangle range = getRange();
-        int width = (int) (hp * owner.getRange().getWidth() / maxHp);
+        int width = (int) (hp * range.width / maxHp);
         g.setColor(Color.RED);
-        g.fillRect(range.x, range.y, (int) owner.getRange().getWidth(), range.height);
+        g.fillRect(range.x, range.y, range.width, range.height);
         g.setColor(Color.ORANGE);
         g.fillRect(range.x, range.y, width, range.height);
     }
 
     @Override
     public Rectangle getRange() {
-        return new Rectangle(owner.getX(), owner.getY() - 10, (int) owner.getRange().getWidth(), 10);
+        //return new Rectangle(owner.getX(), owner.getY() - 30, (int) owner.getRange().getWidth(), 10);
+        if(owner.getTeam() == 1){
+            return new Rectangle(10, 30, 400, 10);
+        }
+        else{
+            return new Rectangle(890, 30, 400, 10);   
+        }
+        
     }
 }
