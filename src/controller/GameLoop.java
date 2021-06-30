@@ -12,7 +12,9 @@ public abstract class GameLoop {
     public void setView(View view) {
         this.view = view;
     }
-
+    public View getView() {
+        return view;
+    }
     public void start() {
         new Thread(this::gameLoop).start();
     }

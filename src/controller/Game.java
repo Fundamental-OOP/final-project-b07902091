@@ -4,6 +4,7 @@ import characters.knight.Knight;
 import model.Direction;
 import java.util.List;
 import model.World;
+import views.Canvas;
 
 /**
  * @author - johnny850807@gmail.com (Waterball)
@@ -99,6 +100,7 @@ public class Game extends GameLoop {
         if ((team1.stream().filter(knight -> !knight.isDead()).count() == 0)
                 || (team2.stream().filter(knight -> !knight.isDead()).count() == 0)) {
             System.out.println("GameOver");
+            ((Canvas)getView()).gameOver();
             return true;
         }
         return false;
