@@ -95,7 +95,7 @@ public class Canvas extends JPanel implements GameLoop.View {
     }
 
     public void gameOver() {
-        ((CardLayout) cards.getLayout()).show(cards, "Card with Character Selection panel");
+        ((CardLayout) cards.getLayout()).next(cards);
     }
 
     @Override

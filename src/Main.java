@@ -8,7 +8,9 @@ import skill.IceWall.IceWallFlying;
 import skill.Lightning.LightningFlying;
 import views.GameView;
 import views.Intro;
-import views.MainMenu;
+import views.StageMenu;
+import views.CharacterMenu;
+import views.GameOver;
 
 import java.awt.event.*;
 
@@ -43,8 +45,11 @@ public class Main {
     public static JPanel cards;
     public static CardLayout layout;
     final static String INTRO_PANEL = "Card with Intro panel";
-    final static String MENU_PANEL = "Card with Character Selection panel";
+    final static String CHACRACTER_MENU_PANEL = "Card with Character Selection panel";
+    final static String STAGE_MENU_PANEL = "Card with Stage Selection panel";
     final static String GAME_PANEL = "Card with GamePlay panel";
+    final static String GAME_OVER_PANEL = "Card with GameOver panel";
+    
     public static String background_path = "assets/background/intro/1.jpg";
 
     public static void main(String[] args) {
@@ -64,13 +69,17 @@ public class Main {
         List<Knight> team2 = new ArrayList<>();
 
         Canvas canvas = new Canvas(cards, view, team1, team2, background_path);
-        MainMenu menu = new MainMenu(cards, team1, team2, canvas);
+        CharacterMenu characterMenu = new CharacterMenu(cards, team1, team2);
+        StageMenu stageMenu = new StageMenu(cards, canvas);
 
+        GameOver gameOver = new GameOver(cards);
 
         // Main Card Layout
         cards.add(intro, INTRO_PANEL);
-        cards.add(menu, MENU_PANEL);
+        cards.add(characterMenu, CHACRACTER_MENU_PANEL);
+        cards.add(stageMenu, STAGE_MENU_PANEL);
         cards.add(canvas, GAME_PANEL);
+        cards.add(gameOver, GAME_OVER_PANEL);
 
         view.add(cards, BorderLayout.CENTER);
         view.setVisible(true);

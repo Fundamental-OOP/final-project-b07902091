@@ -5,50 +5,49 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
-import java.util.Timer;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
 
 import characters.emily.Emily;
 import characters.gray.Gray;
 import characters.knight.Knight;
-import media.AudioPlayer;
 import model.Direction;
 
-import java.awt.*;
 import java.awt.event.*;
 
-public class MainMenu extends JPanel {
-    private Image backgroundImage;
-    private int width;
-    private int height;
+public class CharacterMenu extends JPanel {
     private JPanel parent;
-    private Canvas canvas;
 
-    public MainMenu(JPanel cards, List<Knight> team1, List<Knight> team2, Canvas canvas) {
-        this.canvas = canvas;
+    public CharacterMenu(JPanel cards, List<Knight> team1, List<Knight> team2) {
         this.parent = cards;
         setSize(GameView.WIDTH, GameView.HEIGHT);
         setBackground(Color.blue);
 
+        JLabel title = new JLabel("Choose Your Hero"); // title
+        title.setForeground(Color.gray);
+        title.setFont(new Font("Times New Roman", Font.BOLD, 52));
+
+        add(title);
+
         team1.clear();
         team2.clear();
-
         JLabel emily1 = getKnightIcon("emily", team1, 1);
         JLabel gray1 = getKnightIcon("gray", team1, 1);
 
         JLabel emily2 = getKnightIcon("emily", team2, 2);
         JLabel gray2 = getKnightIcon("gray", team2, 2);
 
-        // emily.setBorder(new EmptyBorder(20, 140, 20, 140));
-        // gray.setBorder(new EmptyBorder(40, 140, 20, 140));
+        add(emily1);
+
+        add(gray1);
+
+        add(emily2);
+
+        add(gray2);
 
         addComponentListener(new ComponentAdapter() {
             @Override
@@ -68,44 +67,14 @@ public class MainMenu extends JPanel {
             }
         });
 
-        JButton start = new JButton("start");
-        start.addActionListener(new ActionListener() {
+        JButton next = new JButton("next");
+        next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                canvas.startGame(0);
-                ((CardLayout) parent.getLayout()).show(parent, "Card with GamePlay panel");
+                ((CardLayout) parent.getLayout()).next(parent);
             }
         });
-
-        add(start);
-
-        JLabel background1 = getBackgroundIcon("1");
-        JLabel background2 = getBackgroundIcon("2");
-        JLabel background3 = getBackgroundIcon("3");
-        JLabel background4 = getBackgroundIcon("4");
-
-    }
-
-    private JLabel getBackgroundIcon(String filename) {
-        try {
-            String iconPath = "assets/background/gamescene/" + filename + ".png";
-            Image img = ImageIO.read(new File(iconPath));
-            Image dimg = img.getScaledInstance(260, 160, Image.SCALE_SMOOTH);
-            JLabel label = new JLabel(new ImageIcon(dimg));
-            label.setSize(160, 260);
-            label.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    canvas.setBackgroundImage(iconPath);
-                }
-            });
-            add(label);
-            return label;
-        } catch (MalformedURLException e1) {
-            e1.printStackTrace();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        return null;
+        add(next);
     }
 
     private JLabel getKnightIcon(String filepath, List<Knight> team, Integer teamNum) {
@@ -136,7 +105,6 @@ public class MainMenu extends JPanel {
                     }
                 }
             });
-            add(label);
             return label;
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
