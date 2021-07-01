@@ -20,7 +20,7 @@ import static utils.ImageStateUtils.imageStatesFromFolder;
 import static characters.knight.Knight.Event.*;
 
 public class Alita extends Knight {
-        public static final int DAMAGE = 60;
+        public static final int DAMAGE = 80;
         public static final String AUDIO_CAST = "emily-cast";
         public static final String AUDIO_INJURED = "emily-injured";
         public static final String AUDIO_DEAD = "emily-dead";

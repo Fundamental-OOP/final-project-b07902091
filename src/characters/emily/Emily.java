@@ -19,7 +19,7 @@ import static utils.ImageStateUtils.imageStatesFromFolder;
 import static characters.knight.Knight.Event.*;
 
 public class Emily extends Knight {
-        public static final int DAMAGE = 100;
+        public static final int DAMAGE = 50;
         public static final String AUDIO_CAST = "emily-cast";
         public static final String AUDIO_INJURED = "emily-injured";
         public static final String AUDIO_DEAD = "emily-dead";
