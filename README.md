@@ -20,9 +20,5 @@ Music promoted by https://www.chosic.com/
         - javac -cp . -sourcepath src/ -d bin/  src/*.java
 
 - 啟動遊戲
-    - Windows 
-        - 對於使用Windows的玩家，我們將遊戲整體封裝成一個 .exe 檔
-        - 玩家只需將點擊 .exe 檔，便可啟動遊戲
-    - Linux OS
-        - 對於Linux OS的玩家，可用以下指令啟動遊戲
-            - java -cp bin/ Main
+    - 可用以下指令啟動遊戲
+        - java -cp bin/ Main
