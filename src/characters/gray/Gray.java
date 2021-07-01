@@ -94,8 +94,7 @@ public class Gray extends Knight {
                                 }
                                 break;
                         case 3:
-                                if (mpBar.getHp() >= Fireball.FIREBALL_MP && upBar.max()) {
-                                        mpBar.onDamaged(null, Fireball.FIREBALL_MP);
+                                if (upBar.max()) {
                                         upBar.setHp(0);
                                         spell = new FireRing(this, 1);
                                 } else {

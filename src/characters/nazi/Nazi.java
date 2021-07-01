@@ -95,8 +95,7 @@ public class Nazi extends Knight {
                                 }
                                 break;
                         case 3:
-                                if (mpBar.getHp() >= Fireball.FIREBALL_MP && upBar.max()) {
-                                        mpBar.onDamaged(null, Fireball.FIREBALL_MP);
+                                if (upBar.max()) {
                                         upBar.setHp(0);
                                         spell = new Fireball(this, 1);
                                         spell.shape = new SpriteShape(
@@ -105,7 +104,7 @@ public class Nazi extends Knight {
                                                         new Dimension(World.MULTIPLY * 2 * 86, World.MULTIPLY * 2 * 60),
                                                         new Dimension(World.MULTIPLY * 2 * 36,
                                                                         World.MULTIPLY * 2 * 55));
-                                        spell.setLocation(new Point(getLocation().x, getLocation().y/2));
+                                        spell.setLocation(new Point(getLocation().x, getLocation().y / 2));
 
                                 } else {
                                         return;
