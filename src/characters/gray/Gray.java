@@ -17,7 +17,7 @@ import skill.Fireball.Fireball;
 import static utils.ImageStateUtils.imageStatesFromFolder;
 
 public class Gray extends Knight {
-        public static final int DAMAGE = 80;
+        public static final int DAMAGE = 60;
         public static final String AUDIO_CAST = "gray-cast";
         public static final String AUDIO_INJURED = "gray-injured";
         public static final String AUDIO_DEAD = "gray-dead";
