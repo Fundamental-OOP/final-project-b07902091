@@ -79,7 +79,7 @@ public class Emily extends Knight {
                 switch (id) {
                         case 1:
                                 if (mpBar.getHp() >= Fireball.FIREBALL_MP) {
-                                        mpBar.onDamaged(null, Fireball.FIREBALL_MP);
+                                        mpBar.onDamaged(null, 100);
                                         spell = new LightningBolt(this, 1);
                                 } else {
                                         return;
@@ -87,7 +87,7 @@ public class Emily extends Knight {
                                 break;
                         case 2:
                                 if (mpBar.getHp() >= Fireball.FIREBALL_MP) {
-                                        mpBar.onDamaged(null, Fireball.FIREBALL_MP);
+                                        mpBar.onDamaged(null, 150);
                                         spell = new Lightning(this, 100);
                                 } else {
                                         return;
