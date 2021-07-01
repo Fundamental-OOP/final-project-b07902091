@@ -80,7 +80,7 @@ public class Nazi extends Knight {
                 switch (id) {
                         case 1:
                                 if (mpBar.getHp() >= Fireball.FIREBALL_MP) {
-                                        mpBar.onDamaged(null, Fireball.FIREBALL_MP);
+                                        mpBar.onDamaged(null, 50);
                                         spell = new LightningBolt(this, 1);
                                 } else {
                                         return;
@@ -88,7 +88,7 @@ public class Nazi extends Knight {
                                 break;
                         case 2:
                                 if (mpBar.getHp() >= Fireball.FIREBALL_MP) {
-                                        mpBar.onDamaged(null, Fireball.FIREBALL_MP);
+                                        mpBar.onDamaged(null, 100);
                                         spell = new Fireball(this, 100);
                                 } else {
                                         return;
